@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Назва вкладки браузера -->
+<title>Yurii Shyryi — 3D Artist</title>
+
+<!-- ── ШРИФТИ Google Fonts ──────────────────────────────────────
+     DM Mono    → мітки, теги
+     Bebas Neue → великі заголовки (SELECTED WORK, TP-7 тощо)
+     DM Sans    → основний текст
+     Щоб замінити шрифт: знайдіть на fonts.google.com → Embed →
+     скопіюйте новий <link> сюди і оновіть змінну у :root вище
+──────────────────────────────────────────────────────────────── -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /*
+  ════════════════════════════════════════════════════════
+   ГЛОБАЛЬНІ ЗМІННІ — тут змінюються кольори і шрифти
+   для всього сайту одразу
+  ════════════════════════════════════════════════════════
+  */
+  :root {
+    /* ── КОЛЬОРИ ФОНУ ── */
+    --bg: #0d0d0b;          /* головний фон сторінки */
+    --bg2: #141412;         /* фон карток і панелей */
+    --bg3: #1a1a17;         /* трохи світліший фон */
+    --surface: #1f1f1c;     /* фон сайдбарів / мета-блоків */
+
+    /* ── ЛІНІЇ / РАМКИ ── */
+    --border: rgba(255,255,255,0.07);        /* тонкі лінії між блоками */
+    --border-strong: rgba(255,255,255,0.14); /* чіткіші рамки */
+
+    /* ── КОЛЬОРИ ТЕКСТУ ── */
+    --text: #f0ede6;        /* основний текст */
+    --text-muted: #8a8880;  /* вторинний текст, описи */
+    --text-dim: #5a5855;    /* мітки, дати, підписи */
+
+    /* ── АКЦЕНТНИЙ КОЛІР ── */
+    /* Замініть #c8a96e на будь-який інший HEX — зміниться скрізь */
+    --accent: #c8a96e;
+    --accent-dim: rgba(200,169,110,0.10);
+    --accent-border: rgba(200,169,110,0.28);
+
+    /* ── ШРИФТИ ── */
+    /* Підключені через Google Fonts у <head>. Щоб змінити —
+       спочатку знайдіть новий шрифт на fonts.google.com,
+       оновіть посилання в <head> і назву тут */
+    --font-display: 'Bebas Neue', sans-serif; /* великі заголовки */
+    --font-body: 'DM Sans', sans-serif;       /* звичайний текст */
+    --font-mono: 'DM Mono', monospace;        /* теги, мітки, код */
+
+    --nav-h: 64px; /* висота верхньої навігаційної панелі */
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 100; background: rgba(13,13,11,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 48px; }
+  .nav-logo { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.08em; color: var(--text); text-decoration: none; cursor: pointer; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+  .page { display: none; min-height: 100vh; padding-top: var(--nav-h); }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero { padding: 90px 48px 72px; max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .hero-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+  h1.hero-name { font-family: var(--font-display); font-size: clamp(68px, 8vw, 116px); line-height: 0.92; letter-spacing: 0.02em; color: var(--text); margin-bottom: 8px; }
+  h1.hero-name em { font-style: normal; color: var(--accent); }
+  .hero-title { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; margin-bottom: 28px; text-transform: uppercase; }
+  .hero-desc { font-size: 16px; color: var(--text-muted); line-height: 1.75; max-width: 440px; margin-bottom: 44px; font-weight: 300; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-primary { background: var(--accent); color: #0d0d0b; font-weight: 500; }
+  .btn-primary:hover { background: #d4b87a; }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-strong); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right-panel { display: flex; flex-direction: column; gap: 2px; }
+  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); }
+  .hero-stat { background: var(--bg2); padding: 26px 20px; text-align: center; }
+  .hero-stat-num { font-family: var(--font-display); font-size: 40px; color: var(--accent); line-height: 1; margin-bottom: 5px; }
+  .hero-stat-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.14em; text-transform: uppercase; }
+  .hero-exp { background: var(--bg2); border: 1px solid var(--border); border-top: none; padding: 24px; }
+  .hero-exp-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 16px; }
+  .exp-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .exp-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .exp-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .exp-company { font-family: var(--font-mono); font-size: 12px; color: var(--text); font-weight: 500; }
+  .exp-period { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); margin-top: 2px; letter-spacing: 0.06em; }
+
+  /* PIPELINE */
+  .pipeline { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 22px 48px; display: flex; align-items: center; overflow-x: auto; white-space: nowrap; }
+  .pipeline-step { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; padding: 0 18px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .pipeline-step:first-child { padding-left: 0; }
+  .pipeline-step.hl { color: var(--accent); }
+  .pipeline-arrow { color: var(--border-strong); font-size: 16px; flex-shrink: 0; }
+  .pdot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+  /* SECTIONS */
+  .section { padding: 72px 48px; max-width: 1400px; margin: 0 auto; }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 36px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  h2.section-title { font-family: var(--font-display); font-size: 46px; letter-spacing: 0.04em; }
+  .section-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--accent); text-decoration: none; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: gap 0.2s; }
+  .section-link:hover { gap: 14px; }
+  .section-link::after { content: '→'; }
+
+  /* HOME FEATURED GRID */
+  .project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 2px; background: var(--border); }
+  .project-card { background: var(--bg2); position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; }
+  .project-card.large { grid-column: span 7; aspect-ratio: auto; min-height: 460px; }
+  .project-card.medium { grid-column: span 5; }
+  .project-card.small { grid-column: span 4; }
+  .project-card.wide { grid-column: span 8; }
+  .card-media { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+  .project-card:hover .card-media { transform: scale(1.03); }
+  .thumb-grid { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; transition: transform 0.6s ease; }
+  .project-card:hover .thumb-grid { transform: scale(1.03); }
+  .thumb-1 { background: linear-gradient(135deg, #1a1a17, #2a2620, #1e1c18); }
+  .thumb-2 { background: linear-gradient(160deg, #14120e, #221e18, #1a1714); }
+  .thumb-3 { background: linear-gradient(120deg, #191916, #232019, #181613); }
+  .thumb-4 { background: linear-gradient(150deg, #161412, #201d16, #161311); }
+  .thumb-label-3d { font-family: var(--font-display); font-size: clamp(36px, 5vw, 76px); color: rgba(200,169,110,0.07); letter-spacing: 0.1em; user-select: none; position: absolute; }
+  .thumb-icon { width: 60px; height: 60px; border: 1px solid rgba(200,169,110,0.18); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+  .project-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 26px 22px 22px; background: linear-gradient(to top, rgba(13,13,11,0.96) 0%, transparent 100%); transform: translateY(6px); transition: transform 0.3s ease; }
+  .project-card:hover .project-overlay { transform: translateY(0); }
+  .project-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 7px; opacity: 0.85; }
+  .project-name { font-family: var(--font-display); font-size: 24px; letter-spacing: 0.04em; color: var(--text); line-height: 1; }
+  .project-meta-line { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-top: 5px; letter-spacing: 0.06em; }
+
+  /* WORK PAGE */
+  .filters { display: flex; gap: 2px; margin-bottom: 36px; background: var(--border); padding: 2px; width: fit-content; }
+  .filter-btn { padding: 9px 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; background: transparent; color: var(--text-muted); border: none; cursor: pointer; transition: all 0.15s; }
+  .filter-btn:hover { color: var(--text); background: var(--surface); }
+  .filter-btn.active { background: var(--accent); color: #0d0d0b; }
+  .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); }
+  .work-card { background: var(--bg2); cursor: pointer; overflow: hidden; }
+  .work-card-image { aspect-ratio: 4/3; overflow: hidden; position: relative; }
+  .work-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .work-card-image .thumb-grid { transition: transform 0.5s ease; }
+  .work-card:hover .work-card-image img,
+  .work-card:hover .thumb-grid { transform: scale(1.04); }
+  .work-card-body { padding: 18px 20px; border-top: 1px solid var(--border); }
+  .work-card-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 5px; }
+  .work-card-name { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.04em; color: var(--text); margin-bottom: 7px; }
+  .work-card-desc { font-size: 13px; color: var(--text-muted); font-weight: 300; line-height: 1.55; }
+
+  /* PROJECT DETAIL */
+  .project-page { max-width: 1200px; margin: 0 auto; padding: 44px 48px 100px; }
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; text-transform: uppercase; cursor: pointer; margin-bottom: 44px; transition: color 0.2s; }
+  .back-link:hover { color: var(--accent); }
+  .back-link::before { content: '←'; }
+
+  /* PROJECT HERO MEDIA */
+  .project-hero-media { width: 100%; aspect-ratio: 16/7; background: var(--bg3); margin-bottom: 60px; position: relative; overflow: hidden; border: 1px solid var(--border); }
+  .project-hero-media img,
+  .project-hero-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .project-hero-label { font-family: var(--font-display); font-size: clamp(70px, 11vw, 170px); color: rgba(200,169,110,0.05); letter-spacing: 0.08em; user-select: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+  .project-layout { display: grid; grid-template-columns: 1fr 290px; gap: 72px; margin-bottom: 72px; }
+  .project-main-title { font-family: var(--font-display); font-size: clamp(50px, 7vw, 84px); letter-spacing: 0.04em; line-height: 0.95; color: var(--text); margin-bottom: 22px; }
+  .project-excerpt { font-size: 15px; color: var(--text-muted); line-height: 1.78; font-weight: 300; max-width: 560px; }
+  .project-meta { background: var(--surface); border: 1px solid var(--border); padding: 26px; }
+  .meta-item { margin-bottom: 22px; }
+  .meta-item:last-child { margin-bottom: 0; }
+  .meta-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; margin-bottom: 5px; }
+  .meta-value { font-family: var(--font-mono); font-size: 13px; color: var(--text); }
+  .meta-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+  .meta-tag { padding: 3px 9px; border: 1px solid var(--border-strong); font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); letter-spacing: 0.07em; }
+
+  .section-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* PROCESS MEDIA GRID */
+  .process-media-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--border); margin-bottom: 60px; }
+  .process-media-item { background: var(--bg2); position: relative; overflow: hidden; }
+  .process-media-item img,
+  .process-media-item video { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 16/9; }
+  .process-media-item video { aspect-ratio: 16/9; }
+  .process-media-caption { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .process-media-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+  .process-media-desc { font-size: 12px; color: var(--text-dim); font-weight: 300; line-height: 1.5; }
+
+  .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); margin-bottom: 60px; }
+  .spec-item { background: var(--bg2); padding: 22px 18px; text-align: center; }
+  .spec-value { font-family: var(--font-mono); font-size: 19px; color: var(--accent); margin-bottom: 5px; font-weight: 500; }
+  .spec-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.15em; text-transform: uppercase; }
+
+  .result-block { background: var(--accent-dim); border: 1px solid var(--accent-border); padding: 24px 28px; display: flex; align-items: flex-start; gap: 18px; }
+  .result-icon { width: 32px; height: 32px; border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent); font-size: 14px; margin-top: 2px; }
+  .result-text { font-size: 14px; color: var(--text-muted); font-weight: 300; line-height: 1.65; }
+  .result-text strong { color: var(--text); font-weight: 400; }
+
+  /* VIDEO FEATURE */
+  .video-feature { width: 100%; aspect-ratio: 16/9; background: #000; overflow: hidden; margin-bottom: 2px; position: relative; }
+  .video-feature video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video-label { background: var(--bg2); border: 1px solid var(--border); border-top: none; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .video-label-text { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .video-label-tag { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* LAB */
+  .lab-viewer { background: var(--bg2); border: 1px solid var(--border); width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 24px; overflow: hidden; }
+  .model-orbit { width: 110px; height: 110px; border: 1px solid rgba(200,169,110,0.14); border-radius: 50%; position: relative; animation: orbit-rotate 8s linear infinite; }
+  .model-orbit::before { content: ''; position: absolute; top: 50%; left: -5px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; transform: translateY(-50%); opacity: 0.6; }
+  .model-orbit-inner { width: 55px; height: 55px; border: 1px solid rgba(200,169,110,0.09); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: orbit-rotate 4s linear infinite reverse; }
+  @keyframes orbit-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .lab-grid { display: grid; grid-template-columns: 1fr 270px; gap: 36px; margin-bottom: 72px; }
+  .lab-specs { background: var(--surface); border: 1px solid var(--border); padding: 22px; }
+  .lab-spec-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .lab-spec-row:last-child { border-bottom: none; }
+  .lab-spec-key { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .lab-spec-val { font-family: var(--font-mono); font-size: 12px; color: var(--text); font-weight: 500; }
+
+  /* ABOUT */
+  .about-layout { display: grid; grid-template-columns: 1fr 360px; gap: 90px; max-width: 1200px; margin: 0 auto; padding: 72px 48px 110px; }
+  .about-intro { font-family: var(--font-display); font-size: clamp(34px, 4vw, 56px); letter-spacing: 0.04em; line-height: 1.05; color: var(--text); margin-bottom: 36px; }
+  .about-intro em { font-style: normal; color: var(--accent); }
+  .about-body { font-size: 15px; color: var(--text-muted); line-height: 1.82; font-weight: 300; margin-bottom: 22px; }
+  .skills-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--border); margin: 44px 0; }
+  .skill-item { background: var(--bg2); padding: 14px 18px; font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; display: flex; align-items: center; gap: 10px; }
+  .skill-item::before { content: ''; width: 4px; height: 4px; background: var(--accent); flex-shrink: 0; }
+  .exp-timeline { display: flex; flex-direction: column; gap: 2px; background: var(--border); margin: 44px 0; }
+  .exp-entry { background: var(--bg2); padding: 24px 28px; display: grid; grid-template-columns: 160px 1fr; gap: 28px; }
+  .exp-dates { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.07em; padding-top: 2px; }
+  .exp-company-name { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.04em; color: var(--text); margin-bottom: 3px; }
+  .exp-role { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .exp-location { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 10px; }
+  .exp-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; font-weight: 300; }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); padding: 28px; position: sticky; top: calc(var(--nav-h) + 20px); }
+  .contact-title { font-family: var(--font-display); font-size: 30px; letter-spacing: 0.04em; color: var(--text); margin-bottom: 6px; }
+  .contact-sub { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.12em; margin-bottom: 28px; text-transform: uppercase; }
+  .contact-links { display: flex; flex-direction: column; gap: 2px; }
+  .contact-link { display: flex; align-items: center; justify-content: space-between; padding: 13px 14px; background: var(--bg2); text-decoration: none; color: var(--text-muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; transition: all 0.2s; cursor: pointer; }
+  .contact-link:hover { color: var(--accent); background: var(--accent-dim); }
+  .contact-link-arrow { font-size: 14px; transition: transform 0.2s; }
+  .contact-link:hover .contact-link-arrow { transform: translate(3px, -3px); }
+
+  footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; max-width: 1400px; margin: 0 auto; }
+  .footer-copy { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.07em; }
+  .footer-right { display: flex; gap: 24px; }
+  .footer-link { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.07em; transition: color 0.2s; cursor: pointer; }
+  .footer-link:hover { color: var(--accent); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  .hero { animation: fadeUp 0.65s ease both; }
+  .hero-right-panel { animation: fadeUp 0.65s ease 0.12s both; }
+
+  /* VIDEO CONTROLS OVERLAY */
+  .video-controls-overlay { position: absolute; bottom: 14px; right: 14px; display: flex; gap: 8px; z-index: 10; }
+  .video-ctrl-btn { background: rgba(13,13,11,0.78); border: 1px solid var(--border-strong); color: var(--text-muted); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 13px; cursor: pointer; transition: all 0.2s; backdrop-filter: blur(10px); }
+  .video-ctrl-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .video-ctrl-btn.sound-on { color: var(--accent); border-color: var(--accent-border); }
+
+  /* LIGHTBOX */
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,0.93); align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox.open { display: flex; animation: fadeUp 0.2s ease both; }
+  .lightbox-inner { position: relative; max-width: 94vw; max-height: 92vh; cursor: default; }
+  .lightbox-inner img { max-width: 94vw; max-height: 88vh; object-fit: contain; display: block; }
+  .lightbox-inner video { max-width: 94vw; max-height: 88vh; display: block; }
+  .lightbox-close { position: absolute; top: -36px; right: 0; background: none; border: none; color: var(--text-muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; padding: 4px 0; transition: color 0.2s; }
+  .lightbox-close:hover { color: var(--accent); }
+  .lightbox-caption { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; text-align: center; }
+  .zoomable { cursor: zoom-in; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     НАВІГАЦІЯ — фіксована шапка зверху
+     Логотип: "YS." — змініть текст між тегами <a class="nav-logo">
+     Пункти меню: змініть текст між <a>...</a> в nav-links
+════════════════════════════════════════════════════════════════ -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">YS<span>.</span></a><!-- логотип / ініціали -->
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('work')" id="nav-work">Work</a></li>
+    <li><a onclick="showPage('lab')" id="nav-lab">Lab</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════════
+     ГОЛОВНА СТОРІНКА (HOME)
+════════════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- ── ГЕРОЙ — лівий блок: ім'я, підзаголовок, кнопки ── -->
+  <div class="hero">
+    <div>
+      <div class="hero-label">3D Artist · Lviv, Ukraine</div><!-- підпис над іменем -->
+      <h1 class="hero-name">YURII<br><em>SHYRYI</em></h1><!-- <em> — золотистий акцент -->
+      <p class="hero-title">Real-time & Product Visualization</p><!-- рядок під іменем -->
+      <p class="hero-desc">Full-pipeline 3D production — from concept mesh to delivery-ready assets for web, AR/VR, and marketing. Blender · Substance Painter · Unreal Engine · Unity.</p><!-- короткий опис -->
+      <div class="hero-cta">
+        <!-- btn-primary = золота кнопка, btn-ghost = прозора з рамкою -->
+        <button class="btn btn-primary" onclick="showPage('work')">View Work</button>
+        <button class="btn btn-ghost" onclick="showPage('about')">Contact</button>
+      </div>
+    </div>
+
+    <!-- ── ГЕРОЙ — правий блок: статистика + досвід ── -->
+    <div class="hero-right-panel">
+      <!-- три цифри зверху: hero-stat-num = число, hero-stat-label = підпис -->
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">4+</div><div class="hero-stat-label">Years exp.</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">8+</div><div class="hero-stat-label">VR/AR at Volvo</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">AAA</div><div class="hero-stat-label">Game credits</div></div>
+      </div>
+      <!-- список місць роботи: exp-company = назва, exp-period = період -->
+      <div class="hero-exp">
+        <div class="hero-exp-label">Recent experience</div>
+        <div class="exp-row"><div class="exp-dot"></div><div><div class="exp-company">Volvo Group</div><div class="exp-period">Dec 2023 – Dec 2025 · Sweden / Remote</div></div></div>
+        <div class="exp-row"><div class="exp-dot"></div><div><div class="exp-company">Room8 Studio</div><div class="exp-period">Aug 2022 – Jan 2023 · AAA vehicles</div></div></div>
+        <div class="exp-row"><div class="exp-dot"></div><div><div class="exp-company">N-iX</div><div class="exp-period">Mar 2021 – Jul 2022 · Game assets</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PIPELINE — горизонтальний рядок кроків процесу ──
+       pipeline-step.hl = підсвічений крок (золотистий)
+       Додайте або видаліть <div class="pipeline-step"> за потреби ── -->
+  <div class="pipeline">
+    <div class="pipeline-step">3D Model</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">UV Unwrap</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">Hi/Lo Baking</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step hl"><span class="pdot"></span> PBR Textures</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">Optimization</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step hl"><span class="pdot"></span> GLB / WebGL</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">AR / VR</div><div class="pipeline-arrow">›</div>
+    <div class="pipeline-step">Marketing Render</div>
+  </div>
+
+  <!-- ── ВИБРАНІ РОБОТИ — сітка карток на головній ── -->
+  <div class="section">
+    <div class="section-header">
+      <h2 class="section-title">SELECTED WORK</h2><!-- заголовок секції -->
+      <a class="section-link" onclick="showPage('work')">All projects</a>
+    </div>
+    <div class="project-grid">
+
+      <!-- картка: large = широка (7/12), medium = 5/12, small = 4/12
+           onclick="showProject('ключ')" — відкриває проект зі списку нижче в JS -->
+
+      <!-- РЯД 1: Arm (large 7/12) + TP-7 (medium 5/12) -->
+
+      <!-- Mechanical Arm — головна велика картка -->
+      <div class="project-card large" onclick="showProject('arm')">
+        <img class="card-media" src="ArmMain.png" alt="Mechanical Arm">
+        <div class="project-overlay">
+          <div class="project-tag">Hard Surface · Character · WIP</div>
+          <div class="project-name">MECHANICAL ARM</div>
+          <div class="project-meta-line">Blender · Cycles · Clay render</div>
+        </div>
+      </div>
+
+      <!-- TP-7 — другий проект -->
+      <div class="project-card medium" onclick="showProject('tp7')">
+        <img class="card-media" src="HeroImage.png" alt="TP-7 Field Recorder">
+        <div class="project-overlay">
+          <div class="project-tag">Product Visualization · Animation · Blender</div>
+          <div class="project-name">TP-7 FIELD RECORDER</div>
+          <div class="project-meta-line">Teenage Engineering · Cycles · Audio-driven animation</div>
+        </div>
+      </div>
+
+      <!-- РЯД 2: Volvo (small 4/12) + Room8 (small 4/12) + N-iX (small 4/12) -->
+
+      <!-- Volvo — заглушка -->
+      <div class="project-card small" onclick="showProject('volvo')">
+        <div class="thumb-grid thumb-1" style="height:100%">
+          <div class="thumb-label-3d">VR / AR</div>
+          <div class="thumb-icon">
+            <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
+              <path d="M2 10 Q2 4 7 4 L29 4 Q34 4 34 10 Q34 16 29 16 L21 16 Q18 12 15 16 L7 16 Q2 16 2 10Z" stroke="#c8a96e" stroke-width="1" fill="none"/>
+              <circle cx="11" cy="10" r="3" stroke="#c8a96e" stroke-width="0.8" fill="rgba(200,169,110,0.1)"/>
+              <circle cx="25" cy="10" r="3" stroke="#c8a96e" stroke-width="0.8" fill="rgba(200,169,110,0.1)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-tag">VR / AR · Real-time · Volvo Group</div>
+          <div class="project-name">VOLVO VR TRAINING</div>
+          <div class="project-meta-line">Unreal Engine · Unity · 8 projects</div>
+        </div>
+      </div>
+
+      <!-- Room8 — заглушка -->
+      <div class="project-card small" onclick="showProject('room8')">
+        <div class="thumb-grid thumb-3">
+          <div class="thumb-label-3d" style="font-size:34px">AAA</div>
+          <div class="thumb-icon">
+            <svg width="36" height="22" viewBox="0 0 36 22" fill="none">
+              <rect x="2" y="8" width="32" height="10" rx="2" stroke="#c8a96e" stroke-width="1" fill="none"/>
+              <path d="M6 8 L10 3 L26 3 L30 8" stroke="#c8a96e" stroke-width="1" fill="none"/>
+              <circle cx="9" cy="18" r="3" stroke="#c8a96e" stroke-width="1" fill="rgba(200,169,110,0.1)"/>
+              <circle cx="27" cy="18" r="3" stroke="#c8a96e" stroke-width="1" fill="rgba(200,169,110,0.1)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-tag">AAA · Hard Surface · Game-ready</div>
+          <div class="project-name">AAA VEHICLES</div>
+        </div>
+      </div>
+
+      <!-- N-iX — заглушка -->
+      <div class="project-card small" onclick="showProject('nix')">
+        <div class="thumb-grid thumb-4" style="height:100%">
+          <div class="thumb-label-3d">HARD SURF</div>
+          <div class="thumb-icon">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+              <rect x="3" y="3" width="24" height="24" stroke="#c8a96e" stroke-width="1" fill="none"/>
+              <rect x="8" y="8" width="14" height="14" stroke="#c8a96e" stroke-width="0.7" fill="none"/>
+              <line x1="3" y1="3" x2="8" y2="8" stroke="#c8a96e" stroke-width="0.7"/>
+              <line x1="27" y1="3" x2="22" y2="8" stroke="#c8a96e" stroke-width="0.7"/>
+              <line x1="3" y1="27" x2="8" y2="22" stroke="#c8a96e" stroke-width="0.7"/>
+              <line x1="27" y1="27" x2="22" y2="22" stroke="#c8a96e" stroke-width="0.7"/>
+            </svg>
+          </div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-tag">Hard Surface · Stylized · Game Assets</div>
+          <div class="project-name">GAME ASSETS — N-iX</div>
+          <div class="project-meta-line">Blender · Substance Painter · Real-time</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     СТОРІНКА WORK — сітка всіх проектів з фільтрами
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-work">
+  <div class="section">
+    <div class="section-header"><h2 class="section-title">WORK</h2></div>
+
+    <!-- ── ФІЛЬТРИ ──
+         filterWork('ключ') — має збігатися з data-cat картки нижче.
+         Щоб додати новий фільтр: додайте кнопку і відповідний data-cat на картці ── -->
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterWork('all',this)">All</button>
+      <button class="filter-btn" onclick="filterWork('product',this)">Product Render</button>
+      <button class="filter-btn" onclick="filterWork('hard-surface',this)">Hard Surface</button>
+      <button class="filter-btn" onclick="filterWork('realtime',this)">Real-time / WebGL</button>
+      <button class="filter-btn" onclick="filterWork('vr',this)">VR / AR</button>
+    </div>
+
+    <!-- ── КАРТКИ ПРОЕКТІВ ──
+         data-cat="..." — категорії через пробіл (для фільтрів)
+         onclick="showProject('ключ')" — ключ має збігатися з об'єктом у JS нижче
+         work-card-tag  = маленький підпис (категорія)
+         work-card-name = назва проекту
+         work-card-desc = короткий опис під назвою ── -->
+    <div class="work-grid" id="work-grid">
+
+      <!-- Картка Mechanical Arm (з реальним фото) — 1-й -->
+      <div class="work-card" data-cat="hard-surface product" onclick="showProject('arm')">
+        <div class="work-card-image">
+          <img src="ArmMain.png" alt="Mechanical Arm">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Hard Surface · Character Asset · WIP</div>
+          <div class="work-card-name">Mechanical Arm</div>
+          <div class="work-card-desc">Personal WIP — form exploration and mechanical design of a detached robotic arm. Sub-D modeling, clay render stage. Blender / Cycles.</div>
+        </div>
+      </div>
+
+      <!-- Картка TP-7 (з реальним фото) — 2-й -->
+      <div class="work-card" data-cat="product hard-surface" onclick="showProject('tp7')">
+        <div class="work-card-image">
+          <img src="HeroImage.png" alt="TP-7 Field Recorder">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Product Visualization · Animation</div>
+          <div class="work-card-name">TP-7 Field Recorder</div>
+          <div class="work-card-desc">Teenage Engineering TP-7 — a study of industrial surfaces in cold coastal light. Audio-driven animation, sub-D modeling, Blender / Cycles.</div>
+        </div>
+      </div>
+
+      <!-- Картка Volvo (заглушка без фото) -->
+      <div class="work-card" data-cat="vr realtime" onclick="showProject('volvo')">
+        <div class="work-card-image"><div class="thumb-grid thumb-1"><div class="thumb-label-3d">VR</div></div></div>
+        <div class="work-card-body">
+          <div class="work-card-tag">VR / AR · Real-time · Volvo Group</div>
+          <div class="work-card-name">Volvo VR Training</div>
+          <div class="work-card-desc">8 VR/AR training and branding projects. High-quality real-time assets for Volvo Group, Sweden. UE5 + Unity delivery.</div>
+        </div>
+      </div>
+
+      <!-- Картка Room8 (заглушка без фото) -->
+      <div class="work-card" data-cat="hard-surface product" onclick="showProject('room8')">
+        <div class="work-card-image"><div class="thumb-grid thumb-2"><div class="thumb-label-3d">AAA</div></div></div>
+        <div class="work-card-body">
+          <div class="work-card-tag">AAA · Hard Surface · Game-ready</div>
+          <div class="work-card-name">AAA Vehicle Assets</div>
+          <div class="work-card-desc">Game-ready vehicle assets for AAA titles at Room8 Studio. Accurate topology, PBR texturing, full LOD chains.</div>
+        </div>
+      </div>
+
+      <!-- Картка N-iX (заглушка без фото) -->
+      <div class="work-card" data-cat="hard-surface realtime" onclick="showProject('nix')">
+        <div class="work-card-image"><div class="thumb-grid thumb-3"><div class="thumb-label-3d" style="font-size:38px">GAME</div></div></div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Hard Surface · Stylized · Game Assets</div>
+          <div class="work-card-name">Game Assets — N-iX</div>
+          <div class="work-card-desc">Hard-surface and stylized assets for diverse game projects. Optimized real-time models, Blender + Substance Painter pipeline.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════ PROJECT DETAIL ══════ -->
+<div class="page" id="page-project">
+  <div class="project-page" id="project-content"></div>
+</div>
+
+<!-- ══════ LAB ══════ -->
+<div class="page" id="page-lab">
+  <div class="section">
+    <div class="section-header"><h2 class="section-title">INTERACTIVE LAB</h2></div>
+    <div style="background:var(--bg3);border:1px solid var(--border);padding:18px 22px;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:44px;">
+      GLB assets load via <code style="background:rgba(200,169,110,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">&lt;model-viewer&gt;</code> — camera controls, auto-rotate, PBR lighting, AR on mobile. Drop <code style="background:rgba(200,169,110,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">.glb</code> files into the same folder as index.html and update the src attribute.
+    </div>
+    <div class="lab-grid">
+      <div>
+        <div class="lab-viewer">
+          <div style="text-align:center;">
+            <div class="model-orbit"><div class="model-orbit-inner"></div></div>
+            <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);margin-top:14px;letter-spacing:0.1em;">model-viewer · camera-controls · auto-rotate</p>
+            <p style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:5px;opacity:0.5;">&lt;model-viewer src="tp7.glb" camera-controls auto-rotate /&gt;</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <button class="btn btn-ghost" style="font-size:11px;padding:8px 14px;">⛶ Fullscreen</button>
+          <button class="btn btn-ghost" style="font-size:11px;padding:8px 14px;">◎ Reset Camera</button>
+          <button class="btn btn-primary" style="font-size:11px;padding:8px 14px;">📱 View in AR</button>
+        </div>
+      </div>
+      <div class="lab-specs">
+        <div style="font-family:var(--font-display);font-size:22px;letter-spacing:0.04em;color:var(--text);margin-bottom:3px;">TP-7 FIELD RECORDER</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.12em;margin-bottom:20px;text-transform:uppercase;">Product Visualization · Blender</div>
+        <div class="lab-spec-row"><span class="lab-spec-key">Software</span><span class="lab-spec-val">Blender</span></div>
+        <div class="lab-spec-row"><span class="lab-spec-key">Renderer</span><span class="lab-spec-val">Cycles</span></div>
+        <div class="lab-spec-row"><span class="lab-spec-key">Workflow</span><span class="lab-spec-val">Sub-D</span></div>
+        <div class="lab-spec-row"><span class="lab-spec-key">Animation</span><span class="lab-spec-val">Audio-driven</span></div>
+        <div class="lab-spec-row"><span class="lab-spec-key">Format</span><span class="lab-spec-val">GLB ready</span></div>
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-dim);line-height:1.6;">
+          Drop tp7.glb here to enable interactive preview with full camera control and AR.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     СТОРІНКА ABOUT
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-layout">
+    <div>
+      <!-- ── великий заголовок: <em> виділяється акцентним кольором ── -->
+      <div class="hero-label">About</div>
+      <h2 class="about-intro">Full-pipeline<br>3D production.<br><em>From mesh<br>to delivery.</em></h2>
+
+      <!-- ── параграфи біографії: кожен <p class="about-body"> — окремий абзац ── -->
+      <p class="about-body">I'm a 3D Artist based in Lviv, Ukraine, with a background in architecture and a focus on hard-surface modeling, product visualization, and real-time asset production. My work spans from AAA game studios to industrial VR/AR applications and cultural heritage preservation.</p>
+      <p class="about-body">At Volvo Group I contributed to 8 VR/AR training and branding projects — building and optimizing production-ready assets for real-time deployment, working directly with developers and stakeholders across Sweden and remotely.</p>
+      <p class="about-body">I cover the complete pipeline: topology, UV unwrapping, high-to-low baking, PBR texturing, optimization, and GLB/WebGL delivery. Clean assets that integrate without friction into any engine or platform.</p>
+
+      <!-- ── TIMELINE ДОСВІДУ ──
+           exp-dates       = ліва колонка (дати)
+           exp-company-name = назва компанії (великі літери)
+           exp-role         = посада
+           exp-location     = місто / формат роботи
+           exp-desc         = опис обов'язків
+           Щоб додати позицію — скопіюйте один <div class="exp-entry"> ── -->
+      <div class="section-label" style="margin-top:48px;">Experience</div>
+      <div class="exp-timeline">
+        <div class="exp-entry">
+          <div class="exp-dates">Dec 2023<br>– Dec 2025</div>
+          <div>
+            <div class="exp-company-name">VOLVO GROUP</div>
+            <div class="exp-role">3D Artist · Consultant</div>
+            <div class="exp-location">Sweden / Remote</div>
+            <div class="exp-desc">Contributed to 8 VR/AR training and branding projects. Created and optimized high-quality 3D assets and environments for real-time use. Worked with developers and stakeholders to ensure smooth implementation and production-ready delivery.</div>
+          </div>
+        </div>
+        <div class="exp-entry">
+          <div class="exp-dates">Nov 2024<br>– Present</div>
+          <div>
+            <div class="exp-company-name">LVIV POLYTECHNIC</div>
+            <div class="exp-role">Lecturer · 3D Graphics</div>
+            <div class="exp-location">Lviv, Ukraine</div>
+            <div class="exp-desc">Teaching 3D graphics, drawing, sculpture, and painting to architecture and design students. Developed interactive coursework bridging academic fundamentals with real-world 3D production workflows.</div>
+          </div>
+        </div>
+        <div class="exp-entry">
+          <div class="exp-dates">Jun 2023<br>– Nov 2023</div>
+          <div>
+            <div class="exp-company-name">SKEIRON</div>
+            <div class="exp-role">3D Artist · Freelance</div>
+            <div class="exp-location">Lviv, Ukraine</div>
+            <div class="exp-desc">Processing photogrammetry scans of Ukrainian museum exhibits. Optimizing high-resolution cultural heritage assets for visualization and digital preservation.</div>
+          </div>
+        </div>
+        <div class="exp-entry">
+          <div class="exp-dates">Aug 2022<br>– Jan 2023</div>
+          <div>
+            <div class="exp-company-name">ROOM8 STUDIO</div>
+            <div class="exp-role">3D Artist</div>
+            <div class="exp-location">Remote</div>
+            <div class="exp-desc">High-quality, game-ready vehicle assets for AAA projects. Accurate topology, PBR texturing, and LOD chains. Collaborated with art leads to maintain consistent style and technical standards.</div>
+          </div>
+        </div>
+        <div class="exp-entry">
+          <div class="exp-dates">Mar 2021<br>– Jul 2022</div>
+          <div>
+            <div class="exp-company-name">N-iX</div>
+            <div class="exp-role">3D Artist</div>
+            <div class="exp-location">Lviv, Ukraine</div>
+            <div class="exp-desc">Hard-surface and stylized game assets for diverse projects. Optimized real-time models aligned with technical requirements. Improved workflows in collaboration with cross-functional teams.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── НАВИЧКИ — сітка 2 колонки, кожен <div class="skill-item"> — окремий тег ── -->
+      <div class="section-label">Tools & Skills</div>
+      <div class="skills-list">
+        <div class="skill-item">Blender</div><div class="skill-item">3ds Max</div>
+        <div class="skill-item">ZBrush</div><div class="skill-item">Substance Painter</div>
+        <div class="skill-item">Substance Designer</div><div class="skill-item">Marmoset Toolbag</div>
+        <div class="skill-item">UVLayout</div><div class="skill-item">Adobe Photoshop</div>
+        <div class="skill-item">Unreal Engine 5</div><div class="skill-item">Unity</div>
+        <div class="skill-item">Hard-surface Modeling</div><div class="skill-item">Digital Sculpting</div>
+        <div class="skill-item">PBR Texturing</div><div class="skill-item">Hi/Lo Baking</div>
+        <div class="skill-item">Retopology</div><div class="skill-item">GLB / WebGL Delivery</div>
+        <div class="skill-item">AR / VR / XR Assets</div><div class="skill-item">Environment Modeling</div>
+      </div>
+      <button class="btn btn-ghost" style="gap:10px;">↓ Download CV (PDF)</button>
+    </div>
+
+    <!-- ── КОНТАКТНА КАРТКА — права колонка на About ── -->
+    <div>
+      <div class="contact-card">
+        <div class="contact-title">GET IN TOUCH</div><!-- заголовок картки -->
+        <div class="contact-sub">Available for freelance & contract</div><!-- підзаголовок -->
+
+        <!-- посилання: href="mailto:..." для email, href="https://..." для сайтів -->
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:yuriishyryi@gmail.com"><span>yuriishyryi@gmail.com</span><span class="contact-link-arrow">↗</span></a>
+          <a class="contact-link" href="https://artstation.com/yuriishyryi" target="_blank"><span>ArtStation</span><span class="contact-link-arrow">↗</span></a>
+          <a class="contact-link" href="https://sketchfab.com/Yura.Shyryy" target="_blank"><span>Sketchfab</span><span class="contact-link-arrow">↗</span></a>
+          <a class="contact-link" href="https://linkedin.com/in/yuriishyryi/" target="_blank"><span>LinkedIn</span><span class="contact-link-arrow">↗</span></a>
+        </div>
+
+        <!-- кожен блок нижче: перший div = підпис, другий div = значення -->
+        <div style="margin-top:22px;padding-top:22px;border-top:1px solid var(--border);">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">Based in</div>
+          <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);">Lviv, Ukraine · Remote worldwide</div>
+        </div>
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">Phone</div>
+          <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);">(+38) 093 859 37 26</div><!-- номер телефону -->
+        </div>
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">Education</div>
+          <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);line-height:1.6;">Master of Architecture<br>Lviv Polytechnic · 2022</div>
+        </div>
+        <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px;">Languages</div>
+          <div style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);">Ukrainian — Native<br>English — Upper-Intermediate</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ФУТЕР — нижній рядок сайту ── -->
+<footer>
+  <span class="footer-copy">© 2025 Yurii Shyryi · 3D Artist · Lviv, Ukraine</span><!-- копірайт -->
+  <div class="footer-right">
+    <a class="footer-link" onclick="showPage('work')">Work</a>
+    <a class="footer-link" onclick="showPage('lab')">Lab</a>
+    <a class="footer-link" onclick="showPage('about')">Contact</a>
+  </div>
+</footer>
+
+<script>
+/*
+════════════════════════════════════════════════════════════════
+  ДАНІ ПРОЕКТІВ
+  Кожен проект — це об'єкт з ключем (наприклад 'tp7').
+  Цей ключ використовується в onclick="showProject('tp7')"
+  на картках вище.
+
+  Щоб додати новий проект:
+    1. Скопіюйте блок нижче (від 'tp7: {' до закриваючої '},' )
+    2. Змініть ключ: замість tp7 — свій унікальний ключ
+    3. Заповніть поля
+    4. Додайте картку у HTML-секціях HOME і WORK вище
+
+  Поля:
+    name        — назва проекту (великими літерами)
+    tag         — рядок під назвою в шапці проекту
+    year        — рік / діапазон
+    role        — ваша роль
+    tools       — масив інструментів (відображаються як теги)
+    client      — клієнт або тип роботи
+    desc        — довгий опис проекту (2–4 речення)
+    specs       — 4 технічні показники (a, b, c, d)
+    specLabels  — підписи до показників
+    result      — підсумковий текст у блоці Delivery
+    heroMedia   — головне медіа вгорі:
+                    { type: 'video', src: 'файл.mp4' }
+                    { type: 'image', src: 'файл.png' }
+                    { type: 'placeholder', label: 'ТЕКСТ' }
+    processItems — масив медіа у Production process:
+                    type: 'image' або 'video' або 'placeholder'
+                    src, title, desc
+    secondaryVideo — (необов'язково) відео Secondary Animation:
+                    { src: 'файл.mp4', label: 'підпис' }
+════════════════════════════════════════════════════════════════
+*/
+const projects = {
+
+  /* ── ПРОЕКТ: TP-7 Field Recorder ── */
+  tp7: {
+    name: 'TP-7 FIELD RECORDER',
+    tag: 'Product Visualization · Animation · Blender / Cycles',
+    year: '2024',
+    role: 'Personal project / Portfolio',
+    tools: ['Blender', 'Cycles', 'Sub-D Modeling'],
+    client: 'Personal — Teenage Engineering study',
+    desc: 'An exploration of the Teenage Engineering TP-7 Field Recorder\'s form through the lens of cold, natural light. The intent was to observe how the device\'s industrial surfaces — brushed aluminum, knurled metal, and glass — react to an atmosphere inspired by the Icelandic coast. Minimal organic elements provide subtle textural contrast to the precise geometry.',
+    /* specs — 4 блоки статистики під описом: значення + підпис */
+    specs: { a: 'Sub-D', b: 'Cycles', c: 'Audio-driven', d: 'Blender' },
+    specLabels: { a: 'Workflow', b: 'Renderer', c: 'Animation', d: 'Software' },
+    result: 'Three animation sequences: main cinematic, secondary camera angle, and WIP timelapse. Clay render documentation of modeling process. Personal portfolio piece demonstrating product visualization and motion capabilities.',
+    /* heroMedia — велике відео/фото у самому верху сторінки проекту */
+    heroMedia: { type: 'video', src: 'MainAnimation.mp4' },
+    /* processItems — сітка 2×2 у розділі Production process */
+    processItems: [
+      {
+        type: 'image', src: '1Clay.png',          /* src — файл у тій самій папці */
+        title: 'Clay Render — Form Study',
+        desc: 'Initial clay render pass. Shape validation and silhouette review of the device body and transport mechanism.'
+      },
+      {
+        type: 'image', src: '3_Clay.png',
+        title: 'Clay Render — Two-view',
+        desc: 'Front and back clay renders showing the panel layout, connector housing, and transport key details.'
+      },
+      {
+        type: 'image', src: 'MainAnimationClay.png',
+        title: 'Clay Animation Frame',
+        desc: 'Clay pass from the main animation — verifying geometry, surface normals, and lighting before texturing.'
+      },
+      {
+        type: 'video', src: 'WIPTimelapse.mp4',
+        title: 'WIP Timelapse',
+        desc: 'Sub-D modeling process timelapse — from block-out to final mesh, capturing the full modeling session.'
+      }
+    ],
+    /* secondaryVideo — відео Secondary Animation (є тільки у TP-7) */
+    secondaryVideo: { src: 'SecondaryAnimation.mp4', label: 'Secondary Animation — Alternative camera angle and composition' }
+  },
+  /* ── ПРОЕКТ: Volvo VR Training ── */
+  volvo: {
+    name: 'VOLVO VR TRAINING',
+    tag: 'VR / AR · Real-time · Industrial',
+    year: '2023 – 2025',
+    role: '3D Artist · Consultant',
+    tools: ['Unreal Engine 5', 'Unity', 'Blender', 'Substance Painter', '3ds Max'],
+    client: 'Volvo Group, Sweden',
+    desc: 'Contributed to 8 VR/AR training and branding projects at Volvo Group over a two-year engagement. Work covered full asset production for real-time environments — high-quality props, vehicles, and architectural spaces built within strict performance budgets for VR headsets. Collaborated directly with developers and stakeholders in Sweden.',
+    specs: { a: 'VR-budgeted', b: 'Atlased', c: '2K / 1K', d: '8 projects' },
+    specLabels: { a: 'Geometry', b: 'Materials', c: 'Textures', d: 'Delivered' },
+    result: 'Delivered as both UE5 and Unity packages. Assets met 90fps VR performance targets while maintaining high visual fidelity required for training and branding contexts.',
+    heroMedia: { type: 'placeholder', label: 'VOLVO VR' },
+    processItems: [
+      { type: 'placeholder', title: 'Clay & Reference', desc: 'High-poly reference renders for shape and proportion validation prior to game-res retopology.' },
+      { type: 'placeholder', title: 'VR Topology', desc: 'Draw call budgets, batching strategy, LOD chains targeting 90fps on VR hardware.' },
+      { type: 'placeholder', title: 'Texture Atlas Workflow', desc: '2K/1K mixed resolution atlas sets. Optimized for memory budget across multiple assets.' },
+      { type: 'placeholder', title: 'UE5 + Unity Delivery', desc: 'Dual-engine package delivery, occlusion culling setup, LOD validation in both engines.' }
+    ]
+  },
+  /* ── ПРОЕКТ: Room8 / AAA Vehicle Assets ── */
+  room8: {
+    name: 'AAA VEHICLE ASSETS',
+    tag: 'AAA · Game-ready · Hard Surface',
+    year: '2022 – 2023',
+    role: '3D Artist',
+    tools: ['3ds Max', 'Substance Painter', 'Marmoset Toolbag', 'ZBrush'],
+    client: 'Room8 Studio (AAA publisher)',
+    desc: 'Produced high-quality, game-ready vehicle assets for AAA projects at Room8 Studio. Work focused on accurate real-world topology, physically accurate PBR material workflows, and full LOD chain production. Collaborated with art leads to maintain consistent visual style and meet strict technical requirements.',
+    specs: { a: 'LOD-managed', b: '4K PBR', c: '4K sets', d: 'Engine-ready' },
+    specLabels: { a: 'Geometry', b: 'Materials', c: 'Textures', d: 'Output' },
+    result: 'Game-ready vehicle assets shipped into AAA production pipeline. Full LOD chains, PBR-accurate materials, style-consistent results validated by art lead review.',
+    heroMedia: { type: 'placeholder', label: 'AAA VEHICLES' },
+    processItems: [
+      { type: 'placeholder', title: 'High-poly Sculpt', desc: 'Surface detail reference in ZBrush — panel lines, bolts, manufacturing marks.' },
+      { type: 'placeholder', title: 'Retopology', desc: 'Accurate edge flow for deformation zones and LOD generation. Budget-managed triangle counts.' },
+      { type: 'placeholder', title: 'Baking — Marmoset', desc: 'Normal, AO, curvature, and ID mask bakes from high-poly. Cage-based workflow.' },
+      { type: 'placeholder', title: 'PBR — Substance Painter', desc: '4K material layers — metallic, roughness, base color, normal. Per-material ID workflow.' }
+    ]
+  },
+  /* ── ПРОЕКТ: Mechanical Arm (WIP) ── */
+  arm: {
+    name: 'MECHANICAL ARM',
+    tag: 'Hard Surface · Character Asset · Blender / Cycles',
+    year: '2025',
+    role: 'Personal project / WIP',
+    tools: ['Blender', 'Cycles', 'Sub-D Modeling'],
+    client: 'Personal — Design exploration',
+    desc: 'A personal WIP project focused on designing and modeling a detached mechanical arm. The main focus at this stage is form exploration, overall silhouette, mechanical logic, and finding a believable visual language for the object. The model is rendered in a clay material to keep attention on shapes, proportions, and surface rhythm before moving into textures and final material work. The project includes concept development, hard-surface modeling, design iteration, and animation tests to explore how the arm feels as a mechanical object.',
+    /* specs — 4 блоки статистики */
+    specs: { a: 'Sub-D', b: 'Cycles', c: 'Clay', d: 'WIP' },
+    specLabels: { a: 'Workflow', b: 'Renderer', c: 'Material', d: 'Status' },
+    result: 'Three animation sequences exploring motion and mechanical weight. Clay render documentation of the current modeling stage. Textures, final materials, and additional detailing will be added in the next stages.',
+    /* heroMedia — головне відео зверху сторінки */
+    heroMedia: { type: 'video', src: 'ArmAnim3.mp4' },
+    /* processItems — сітка 2×2 у Production process */
+    processItems: [
+      {
+        type: 'image', src: 'ArmMain.png',
+        title: 'Clay Render — Closed Fist',
+        desc: 'Clay render in a closed fist position. Form validation, surface rhythm, and silhouette study from a low side angle.'
+      },
+      {
+        type: 'image', src: 'ArmMain2.png',
+        title: 'Clay Render — Extended',
+        desc: 'Arm extended, shot from above. Shows the shoulder joint housing, forearm structure, and hand mechanics.'
+      },
+      {
+        type: 'video', src: 'ArmAnim1.mp4',
+        title: 'Animation Test — First Sequence',
+        desc: 'First animation pass (250 frames). Exploring motion arc, joint rotation logic, and mechanical weight.'
+      },
+      {
+        type: 'video', src: 'ArmAnim2.mp4',
+        title: 'Animation Test — Second Sequence',
+        desc: 'Short loop (60 frames). Alternative camera angle and composition — testing the arm from a different read.'
+      }
+    ],
+    /* secondaryVideo відсутній — всі анімації розміщені у processItems */
+  },
+
+  /* ── ПРОЕКТ: N-iX / Game Assets ── */
+  nix: {
+    name: 'GAME ASSETS — N-iX',
+    tag: 'Hard Surface · Stylized · Game-ready',
+    year: '2021 – 2022',
+    role: '3D Artist',
+    tools: ['Blender', 'Substance Painter', '3ds Max'],
+    client: 'N-iX (game projects)',
+    desc: 'Created and textured both hard-surface and stylized game assets across diverse projects at N-iX. Deliverables were fully optimized real-time models aligned with project-specific technical requirements. Contributed workflow improvements in collaboration with cross-functional art and development teams.',
+    specs: { a: 'Real-time opt.', b: 'Per-project', c: 'PBR sets', d: 'Game-ready' },
+    specLabels: { a: 'Geometry', b: 'Materials', c: 'Textures', d: 'Output' },
+    result: 'Multiple game-ready asset sets shipped across different project types. Both stylized and hard-surface pipelines, optimized for real-time performance in multiple engines.',
+    heroMedia: { type: 'placeholder', label: 'GAME ASSETS' },
+    processItems: [
+      { type: 'placeholder', title: 'Concept Blocking', desc: 'Form language, proportions, and silhouette established in Blender before detail pass.' },
+      { type: 'placeholder', title: 'Hard-surface Detail', desc: 'Panel lines, bevels, mechanical logic — maintaining believable industrial design language.' },
+      { type: 'placeholder', title: 'UV Unwrap', desc: 'Clean layout, minimal seams, efficient texel density. Hand-placed islands for critical surfaces.' },
+      { type: 'placeholder', title: 'Substance Painter', desc: 'PBR and hand-painted texture workflows, adapted per project style guide and brief.' }
+    ]
+  }
+};
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const nav = document.getElementById('nav-' + (id === 'project' ? 'work' : id));
+  if (nav) nav.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function makeMediaItem(item) {
+  if (item.type === 'video') {
+    return `<video autoplay muted loop playsinline src="${item.src}" class="zoomable" onclick="openLightbox('${item.src}','video','${item.title}')"></video>`;
+  } else if (item.type === 'image') {
+    return `<img src="${item.src}" alt="${item.title}" class="zoomable" onclick="openLightbox('${item.src}','image','${item.title}')">`;
+  } else {
+    return `<div class="thumb-grid thumb-2" style="aspect-ratio:16/9;"><div class="thumb-label-3d" style="font-size:40px;">${item.title.toUpperCase()}</div></div>`;
+  }
+}
+
+function showProject(slug) {
+  const p = projects[slug];
+  if (!p) return;
+  const toolTags = p.tools.map(t => `<span class="meta-tag">${t}</span>`).join('');
+
+  // Hero media
+  let heroHtml = '';
+  if (p.heroMedia.type === 'video') {
+    heroHtml = `
+      <video id="hero-video" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;display:block;" src="${p.heroMedia.src}"></video>
+      <div class="video-controls-overlay">
+        <button class="video-ctrl-btn" id="hero-sound-btn" onclick="toggleHeroSound()">Sound Off</button>
+        <button class="video-ctrl-btn" onclick="toggleHeroFullscreen()">Fullscreen</button>
+      </div>`;
+  } else if (p.heroMedia.type === 'image') {
+    heroHtml = `<img style="width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;" src="${p.heroMedia.src}" alt="${p.name}" onclick="openLightbox('${p.heroMedia.src}','image','${p.name}')">`;
+  } else {
+    heroHtml = `<div class="project-hero-label">${p.heroMedia.label}</div>`;
+  }
+
+  // Process grid
+  const processHtml = p.processItems.map(item => `
+    <div class="process-media-item">
+      ${makeMediaItem(item)}
+      <div class="process-media-caption">
+        <div class="process-media-title">${item.title}</div>
+        <div class="process-media-desc">${item.desc}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Secondary video (TP-7 only)
+  const secondaryHtml = p.secondaryVideo ? `
+    <div style="margin-top:48px;">
+      <div class="section-label">Secondary Animation</div>
+      <div class="video-feature">
+        <video autoplay muted loop playsinline src="${p.secondaryVideo.src}"></video>
+      </div>
+      <div class="video-label">
+        <span class="video-label-text">${p.secondaryVideo.label}</span>
+        <span class="video-label-tag">Blender · Cycles</span>
+      </div>
+    </div>
+  ` : '';
+
+  document.getElementById('project-content').innerHTML = `
+    <a class="back-link" onclick="showPage('work')">All projects</a>
+    <div class="project-hero-media">${heroHtml}</div>
+    <div class="project-layout">
+      <div>
+        <div class="project-tag">${p.tag}</div>
+        <h2 class="project-main-title">${p.name}</h2>
+        <p class="project-excerpt">${p.desc}</p>
+      </div>
+      <div class="project-meta">
+        <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">${p.role}</div></div>
+        <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-tags">${toolTags}</div></div>
+        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">${p.year}</div></div>
+        <div class="meta-item"><div class="meta-label">Client</div><div class="meta-value">${p.client}</div></div>
+      </div>
+    </div>
+    <div class="section-label">Technical specs</div>
+    <div class="specs-grid">
+      <div class="spec-item"><div class="spec-value">${p.specs.a}</div><div class="spec-label">${p.specLabels.a}</div></div>
+      <div class="spec-item"><div class="spec-value">${p.specs.b}</div><div class="spec-label">${p.specLabels.b}</div></div>
+      <div class="spec-item"><div class="spec-value">${p.specs.c}</div><div class="spec-label">${p.specLabels.c}</div></div>
+      <div class="spec-item"><div class="spec-value">${p.specs.d}</div><div class="spec-label">${p.specLabels.d}</div></div>
+    </div>
+    ${secondaryHtml}
+    <div class="section-label">Production process</div>
+    <div class="process-media-grid">${processHtml}</div>
+    <div style="margin-top:48px;">
+      <div class="section-label">Delivery</div>
+      <div class="result-block">
+        <div class="result-icon">✓</div>
+        <div class="result-text"><strong>Result:</strong> ${p.result}</div>
+      </div>
+    </div>
+  `;
+  showPage('project');
+}
+
+function filterWork(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat.includes(cat)) ? '' : 'none';
+  });
+}
+
+function toggleHeroSound() {
+  const v = document.getElementById('hero-video');
+  const btn = document.getElementById('hero-sound-btn');
+  if (!v) return;
+  if (v.muted) {
+    v.muted = false;
+    v.volume = 0.3;
+    btn.textContent = 'Sound On';
+    btn.classList.add('sound-on');
+  } else {
+    v.muted = true;
+    btn.textContent = 'Sound Off';
+    btn.classList.remove('sound-on');
+  }
+}
+
+function toggleHeroFullscreen() {
+  const el = document.querySelector('.project-hero-media');
+  if (!el) return;
+  if (!document.fullscreenElement) {
+    el.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+function openLightbox(src, type, caption) {
+  const content = document.getElementById('lightbox-content');
+  document.getElementById('lightbox-caption').textContent = caption || '';
+  if (type === 'video') {
+    content.innerHTML = `<video autoplay muted loop playsinline controls src="${src}"></video>`;
+  } else {
+    content.innerHTML = `<img src="${src}" alt="${caption || ''}">`;
+  }
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-content').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕ Close</button>
+    <div id="lightbox-content"></div>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+</body>
+</html>
