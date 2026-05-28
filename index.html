@@ -85,11 +85,7 @@
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
   .hero-right-panel { display: flex; flex-direction: column; gap: 2px; }
-  .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); }
-  .hero-stat { background: var(--bg2); padding: 26px 20px; text-align: center; }
-  .hero-stat-num { font-family: var(--font-display); font-size: 40px; color: var(--accent); line-height: 1; margin-bottom: 5px; }
-  .hero-stat-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.14em; text-transform: uppercase; }
-  .hero-exp { background: var(--bg2); border: 1px solid var(--border); border-top: none; padding: 24px; }
+  .hero-exp { background: var(--bg2); border: 1px solid var(--border); padding: 24px; }
   .hero-exp-label { font-family: var(--font-mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 16px; }
   .exp-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); }
   .exp-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -269,6 +265,89 @@
   .lightbox-close:hover { color: var(--accent); }
   .lightbox-caption { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; text-align: center; }
   .zoomable { cursor: zoom-in; }
+
+  /*
+  ════════════════════════════════════════════════════════
+   МОБІЛЬНА АДАПТАЦІЯ
+   @media (max-width: 768px)  — телефони
+   @media (max-width: 1024px) — планшети
+  ════════════════════════════════════════════════════════
+  */
+
+  /* ── ПЛАНШЕТИ (769px – 1024px) ── */
+  @media (max-width: 1024px) {
+    nav { padding: 0 28px; }
+    .hero { padding: 64px 28px 56px; gap: 48px; }
+    .section { padding: 60px 28px; }
+    .project-page { padding: 36px 28px 80px; }
+    .about-layout { padding: 60px 28px 90px; gap: 48px; }
+    footer { padding: 24px 28px; }
+    /* Сітка робіт — 2 колонки на планшеті */
+    .work-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── ТЕЛЕФОНИ (до 768px) ── */
+  @media (max-width: 768px) {
+    /* Навігація */
+    nav { padding: 0 16px; }
+    .nav-logo { font-size: 12px; }
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.06em; }
+
+    /* Hero — одна колонка */
+    .hero { grid-template-columns: 1fr; gap: 32px; padding: 40px 16px 48px; }
+    h1.hero-name { font-size: clamp(52px, 14vw, 80px); }
+    .hero-desc { max-width: 100%; font-size: 15px; }
+
+    /* Pipeline */
+    .pipeline { padding: 16px; }
+
+    /* Секції */
+    .section { padding: 48px 16px; }
+    h2.section-title { font-size: 36px; }
+
+    /* Домашня сітка — всі картки на повну ширину */
+    .project-grid { grid-template-columns: 1fr; }
+    .project-card.large,
+    .project-card.medium,
+    .project-card.small,
+    .project-card.wide { grid-column: 1 / -1; aspect-ratio: 4/3; min-height: unset; }
+
+    /* Фільтри на сторінці Work */
+    .filters { flex-wrap: wrap; width: 100%; }
+
+    /* Сітка робіт — 1 колонка на телефоні */
+    .work-grid { grid-template-columns: 1fr; }
+
+    /* Сторінка проєкту */
+    .project-page { padding: 24px 16px 72px; }
+    .project-hero-media { aspect-ratio: 16/9; margin-bottom: 32px; }
+    /* Основний текст + мета-блок — одна колонка */
+    .project-layout { grid-template-columns: 1fr; gap: 28px; margin-bottom: 40px; }
+    .project-main-title { font-size: clamp(40px, 10vw, 64px); }
+
+    /* Медіа-сітка процесу — 1 колонка */
+    .process-media-grid { grid-template-columns: 1fr; }
+
+    /* Специфікації — 2 колонки замість 4 */
+    .specs-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* About */
+    .about-layout { grid-template-columns: 1fr; gap: 40px; padding: 48px 16px 72px; }
+    .about-intro { font-size: clamp(28px, 8vw, 44px); }
+    /* Контакт-картка — без sticky на мобільному */
+    .contact-card { position: static; }
+    /* Навички — 1 колонка */
+    .skills-list { grid-template-columns: 1fr; }
+    /* Таймлайн досвіду — stack дати над текстом */
+    .exp-entry { grid-template-columns: 1fr; gap: 6px; padding: 18px 20px; }
+
+    /* Lab */
+    .lab-grid { grid-template-columns: 1fr; gap: 24px; }
+
+    /* Footer */
+    footer { flex-direction: column; gap: 14px; align-items: flex-start; padding: 22px 16px; }
+  }
 </style>
 </head>
 <body>
@@ -307,14 +386,8 @@
       </div>
     </div>
 
-    <!-- ── ГЕРОЙ — правий блок: статистика + досвід ── -->
+    <!-- ── ГЕРОЙ — правий блок: досвід ── -->
     <div class="hero-right-panel">
-      <!-- три цифри зверху: hero-stat-num = число, hero-stat-label = підпис -->
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-num">4+</div><div class="hero-stat-label">Years exp.</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">8+</div><div class="hero-stat-label">VR/AR at Volvo</div></div>
-        <div class="hero-stat"><div class="hero-stat-num">AAA</div><div class="hero-stat-label">Game credits</div></div>
-      </div>
       <!-- список місць роботи: exp-company = назва, exp-period = період -->
       <div class="hero-exp">
         <div class="hero-exp-label">Recent experience</div>
