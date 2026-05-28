@@ -18,3 +18,6 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Локальні налаштування Claude Code (особисті, не для репозиторію)
+.claude/settings.local.json
