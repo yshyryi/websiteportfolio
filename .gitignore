@@ -1,0 +1,20 @@
+# Large source/archive files — not needed for the deployed site
+*.zip
+*.rar
+*.7z
+
+# 3D source files
+*.blend
+*.blend1
+*.blend2
+*.spp
+*.max
+*.fbx
+*.obj
+*.glb
+*.gltf
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
