@@ -1036,6 +1036,11 @@ function showPage(id) {
   const nav = document.getElementById('nav-' + (id === 'project' ? 'work' : id));
   if (nav) nav.classList.add('active');
   window.scrollTo(0, 0);
+  /* Оновлюємо URL: #work, #about тощо — щоб можна було ділитись посиланням */
+  if (!_routing) {
+    const h = (id === 'home' || id === 'project') ? '' : id;
+    history.pushState({page: id}, '', h ? '#' + h : location.pathname + location.search);
+  }
 }
 
 function makeMediaItem(item) {
@@ -1162,6 +1167,8 @@ function showProject(slug) {
       </div>
     </div>
   `;
+  /* Записуємо slug проєкту в URL: #yamaha, #tp7 тощо */
+  if (!_routing) history.pushState({project: slug}, '', '#' + slug);
   showPage('project');
 }
 
@@ -1209,6 +1216,34 @@ function toggleModelFullscreen() {
     document.exitFullscreen();
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   HASH-РОУТИНГ — пряме посилання на проєкт або сторінку
+   Приклади: site/#yamaha  site/#tp7  site/#work  site/#about
+══════════════════════════════════════════════════════════════ */
+let _routing = false; // прапорець щоб уникнути циклу при popstate
+
+function _handleHash() {
+  const hash = location.hash.slice(1); // прибираємо #
+  _routing = true;
+  if (!hash || hash === 'home') {
+    showPage('home');
+  } else if (['work', 'about', 'lab'].includes(hash)) {
+    showPage(hash);
+  } else if (projects[hash]) {
+    showProject(hash);
+  }
+  _routing = false;
+}
+
+/* Назад / вперед у браузері */
+window.addEventListener('popstate', _handleHash);
+
+/* Відновити стан при відкритті посилання */
+(function() {
+  const hash = location.hash.slice(1);
+  if (hash && hash !== 'home') _handleHash();
+})();
 
 function openLightbox(src, type, caption) {
   const content = document.getElementById('lightbox-content');
