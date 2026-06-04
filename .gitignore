@@ -3,7 +3,7 @@
 *.rar
 *.7z
 
-# 3D source files
+# 3D source files (важкі, не потрібні для сайту)
 *.blend
 *.blend1
 *.blend2
@@ -11,8 +11,9 @@
 *.max
 *.fbx
 *.obj
-*.glb
 *.gltf
+# GLB дозволені — потрібні для model-viewer на сайті
+# (якщо треба виключити конкретний файл: !НазваФайлу.glb)
 
 # OS
 .DS_Store
