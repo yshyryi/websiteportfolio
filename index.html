@@ -371,8 +371,9 @@
     /* Lab */
     .lab-grid { grid-template-columns: 1fr; gap: 24px; }
 
-    /* На мобільному портретні елементи теж на всю ширину */
-    .process-media-item.portrait { grid-column: 1 / -1; }
+    /* На мобільному — всі медіа по 1 в рядку, без винятків */
+    .process-media-grid { grid-template-columns: 1fr; }
+    .process-media-item, .process-media-item.portrait { grid-column: 1 / -1; }
 
     /* Footer */
     footer { flex-direction: column; gap: 14px; align-items: flex-start; padding: 22px 16px; }
