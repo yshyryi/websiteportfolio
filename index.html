@@ -43,10 +43,10 @@
     --text-dim: #5a5855;    /* мітки, дати, підписи */
 
     /* ── АКЦЕНТНИЙ КОЛІР ── */
-    /* Замініть #c8a96e на будь-який інший HEX — зміниться скрізь */
-    --accent: #c8a96e;
-    --accent-dim: rgba(200,169,110,0.10);
-    --accent-border: rgba(200,169,110,0.28);
+    /* Замініть #FF3C7D на будь-який інший HEX — зміниться скрізь */
+    --accent: #FF3C7D;
+    --accent-dim: rgba(255,60,125,0.10);
+    --accent-border: rgba(255,60,125,0.28);
 
     /* ── ШРИФТИ ── */
     /* Підключені через Google Fonts у <head>. Щоб змінити —
@@ -126,8 +126,8 @@
   .thumb-2 { background: linear-gradient(160deg, #14120e, #221e18, #1a1714); }
   .thumb-3 { background: linear-gradient(120deg, #191916, #232019, #181613); }
   .thumb-4 { background: linear-gradient(150deg, #161412, #201d16, #161311); }
-  .thumb-label-3d { font-family: var(--font-display); font-size: clamp(36px, 5vw, 76px); color: rgba(200,169,110,0.07); letter-spacing: 0.1em; user-select: none; position: absolute; }
-  .thumb-icon { width: 60px; height: 60px; border: 1px solid rgba(200,169,110,0.18); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
+  .thumb-label-3d { font-family: var(--font-display); font-size: clamp(36px, 5vw, 76px); color: rgba(255,60,125,0.07); letter-spacing: 0.1em; user-select: none; position: absolute; }
+  .thumb-icon { width: 60px; height: 60px; border: 1px solid rgba(255,60,125,0.18); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; }
   .project-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 26px 22px 22px; background: linear-gradient(to top, rgba(13,13,11,0.96) 0%, transparent 100%); transform: translateY(6px); transition: transform 0.3s ease; }
   .project-card:hover .project-overlay { transform: translateY(0); }
   .project-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-bottom: 7px; opacity: 0.85; }
@@ -161,7 +161,7 @@
   .project-hero-media { width: 100%; aspect-ratio: 16/7; background: var(--bg3); margin-bottom: 60px; position: relative; overflow: hidden; border: 1px solid var(--border); }
   .project-hero-media img,
   .project-hero-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .project-hero-label { font-family: var(--font-display); font-size: clamp(70px, 11vw, 170px); color: rgba(200,169,110,0.05); letter-spacing: 0.08em; user-select: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  .project-hero-label { font-family: var(--font-display); font-size: clamp(70px, 11vw, 170px); color: rgba(255,60,125,0.05); letter-spacing: 0.08em; user-select: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
 
   .project-layout { display: grid; grid-template-columns: 1fr 290px; gap: 72px; margin-bottom: 72px; }
   .project-main-title { font-family: var(--font-display); font-size: clamp(50px, 7vw, 84px); letter-spacing: 0.04em; line-height: 0.95; color: var(--text); margin-bottom: 22px; }
@@ -206,9 +206,9 @@
 
   /* LAB */
   .lab-viewer { background: var(--bg2); border: 1px solid var(--border); width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 24px; overflow: hidden; }
-  .model-orbit { width: 110px; height: 110px; border: 1px solid rgba(200,169,110,0.14); border-radius: 50%; position: relative; animation: orbit-rotate 8s linear infinite; }
+  .model-orbit { width: 110px; height: 110px; border: 1px solid rgba(255,60,125,0.14); border-radius: 50%; position: relative; animation: orbit-rotate 8s linear infinite; }
   .model-orbit::before { content: ''; position: absolute; top: 50%; left: -5px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; transform: translateY(-50%); opacity: 0.6; }
-  .model-orbit-inner { width: 55px; height: 55px; border: 1px solid rgba(200,169,110,0.09); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: orbit-rotate 4s linear infinite reverse; }
+  .model-orbit-inner { width: 55px; height: 55px; border: 1px solid rgba(255,60,125,0.09); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: orbit-rotate 4s linear infinite reverse; }
   @keyframes orbit-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .lab-grid { display: grid; grid-template-columns: 1fr 270px; gap: 36px; margin-bottom: 72px; }
   .lab-specs { background: var(--surface); border: 1px solid var(--border); padding: 22px; }
@@ -480,66 +480,6 @@
         </div>
       </div>
 
-      <!-- Volvo — заглушка -->
-      <div class="project-card small" onclick="showProject('volvo')">
-        <div class="thumb-grid thumb-1" style="height:100%">
-          <div class="thumb-label-3d">VR / AR</div>
-          <div class="thumb-icon">
-            <svg width="36" height="20" viewBox="0 0 36 20" fill="none">
-              <path d="M2 10 Q2 4 7 4 L29 4 Q34 4 34 10 Q34 16 29 16 L21 16 Q18 12 15 16 L7 16 Q2 16 2 10Z" stroke="#c8a96e" stroke-width="1" fill="none"/>
-              <circle cx="11" cy="10" r="3" stroke="#c8a96e" stroke-width="0.8" fill="rgba(200,169,110,0.1)"/>
-              <circle cx="25" cy="10" r="3" stroke="#c8a96e" stroke-width="0.8" fill="rgba(200,169,110,0.1)"/>
-            </svg>
-          </div>
-        </div>
-        <div class="project-overlay">
-          <div class="project-tag">VR / AR · Real-time · Volvo Group</div>
-          <div class="project-name">VOLVO VR TRAINING</div>
-          <div class="project-meta-line">Unreal Engine · Unity · 8 projects</div>
-        </div>
-      </div>
-
-      <!-- Room8 — заглушка -->
-      <div class="project-card small" onclick="showProject('room8')">
-        <div class="thumb-grid thumb-3">
-          <div class="thumb-label-3d" style="font-size:34px">AAA</div>
-          <div class="thumb-icon">
-            <svg width="36" height="22" viewBox="0 0 36 22" fill="none">
-              <rect x="2" y="8" width="32" height="10" rx="2" stroke="#c8a96e" stroke-width="1" fill="none"/>
-              <path d="M6 8 L10 3 L26 3 L30 8" stroke="#c8a96e" stroke-width="1" fill="none"/>
-              <circle cx="9" cy="18" r="3" stroke="#c8a96e" stroke-width="1" fill="rgba(200,169,110,0.1)"/>
-              <circle cx="27" cy="18" r="3" stroke="#c8a96e" stroke-width="1" fill="rgba(200,169,110,0.1)"/>
-            </svg>
-          </div>
-        </div>
-        <div class="project-overlay">
-          <div class="project-tag">AAA · Hard Surface · Game-ready</div>
-          <div class="project-name">AAA VEHICLES</div>
-        </div>
-      </div>
-
-      <!-- N-iX — заглушка -->
-      <div class="project-card small" onclick="showProject('nix')">
-        <div class="thumb-grid thumb-4" style="height:100%">
-          <div class="thumb-label-3d">HARD SURF</div>
-          <div class="thumb-icon">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
-              <rect x="3" y="3" width="24" height="24" stroke="#c8a96e" stroke-width="1" fill="none"/>
-              <rect x="8" y="8" width="14" height="14" stroke="#c8a96e" stroke-width="0.7" fill="none"/>
-              <line x1="3" y1="3" x2="8" y2="8" stroke="#c8a96e" stroke-width="0.7"/>
-              <line x1="27" y1="3" x2="22" y2="8" stroke="#c8a96e" stroke-width="0.7"/>
-              <line x1="3" y1="27" x2="8" y2="22" stroke="#c8a96e" stroke-width="0.7"/>
-              <line x1="27" y1="27" x2="22" y2="22" stroke="#c8a96e" stroke-width="0.7"/>
-            </svg>
-          </div>
-        </div>
-        <div class="project-overlay">
-          <div class="project-tag">Hard Surface · Stylized · Game Assets</div>
-          <div class="project-name">GAME ASSETS — N-iX</div>
-          <div class="project-meta-line">Blender · Substance Painter · Real-time</div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -604,36 +544,6 @@
         </div>
       </div>
 
-      <!-- Картка Volvo (заглушка без фото) -->
-      <div class="work-card" data-cat="vr realtime" onclick="showProject('volvo')">
-        <div class="work-card-image"><div class="thumb-grid thumb-1"><div class="thumb-label-3d">VR</div></div></div>
-        <div class="work-card-body">
-          <div class="work-card-tag">VR / AR · Real-time · Volvo Group</div>
-          <div class="work-card-name">Volvo VR Training</div>
-          <div class="work-card-desc">8 VR/AR training and branding projects. High-quality real-time assets for Volvo Group, Sweden. UE5 + Unity delivery.</div>
-        </div>
-      </div>
-
-      <!-- Картка Room8 (заглушка без фото) -->
-      <div class="work-card" data-cat="hard-surface product" onclick="showProject('room8')">
-        <div class="work-card-image"><div class="thumb-grid thumb-2"><div class="thumb-label-3d">AAA</div></div></div>
-        <div class="work-card-body">
-          <div class="work-card-tag">AAA · Hard Surface · Game-ready</div>
-          <div class="work-card-name">AAA Vehicle Assets</div>
-          <div class="work-card-desc">Game-ready vehicle assets for AAA titles at Room8 Studio. Accurate topology, PBR texturing, full LOD chains.</div>
-        </div>
-      </div>
-
-      <!-- Картка N-iX (заглушка без фото) -->
-      <div class="work-card" data-cat="hard-surface realtime" onclick="showProject('nix')">
-        <div class="work-card-image"><div class="thumb-grid thumb-3"><div class="thumb-label-3d" style="font-size:38px">GAME</div></div></div>
-        <div class="work-card-body">
-          <div class="work-card-tag">Hard Surface · Stylized · Game Assets</div>
-          <div class="work-card-name">Game Assets — N-iX</div>
-          <div class="work-card-desc">Hard-surface and stylized assets for diverse game projects. Optimized real-time models, Blender + Substance Painter pipeline.</div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -648,7 +558,7 @@
   <div class="section">
     <div class="section-header"><h2 class="section-title">INTERACTIVE LAB</h2></div>
     <div style="background:var(--bg3);border:1px solid var(--border);padding:18px 22px;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:44px;">
-      GLB assets load via <code style="background:rgba(200,169,110,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">&lt;model-viewer&gt;</code> — camera controls, auto-rotate, PBR lighting, AR on mobile. Drop <code style="background:rgba(200,169,110,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">.glb</code> files into the same folder as index.html and update the src attribute.
+      GLB assets load via <code style="background:rgba(255,60,125,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">&lt;model-viewer&gt;</code> — camera controls, auto-rotate, PBR lighting, AR on mobile. Drop <code style="background:rgba(255,60,125,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">.glb</code> files into the same folder as index.html and update the src attribute.
     </div>
     <div class="lab-grid">
       <div>
@@ -893,46 +803,6 @@ const projects = {
     /* secondaryVideo — відео Secondary Animation (є тільки у TP-7) */
     secondaryVideo: { src: 'SecondaryAnimation.mp4', label: 'Secondary Animation — Alternative camera angle and composition' }
   },
-  /* ── ПРОЕКТ: Volvo VR Training ── */
-  volvo: {
-    name: 'VOLVO VR TRAINING',
-    tag: 'VR / AR · Real-time · Industrial',
-    year: '2023 – 2025',
-    role: '3D Artist · Consultant',
-    tools: ['Unreal Engine 5', 'Unity', 'Blender', 'Substance Painter', '3ds Max'],
-    client: 'Volvo Group, Sweden',
-    desc: 'Contributed to 8 VR/AR training and branding projects at Volvo Group over a two-year engagement. Work covered full asset production for real-time environments — high-quality props, vehicles, and architectural spaces built within strict performance budgets for VR headsets. Collaborated directly with developers and stakeholders in Sweden.',
-    specs: { a: 'VR-budgeted', b: 'Atlased', c: '2K / 1K', d: '8 projects' },
-    specLabels: { a: 'Geometry', b: 'Materials', c: 'Textures', d: 'Delivered' },
-    result: 'Delivered as both UE5 and Unity packages. Assets met 90fps VR performance targets while maintaining high visual fidelity required for training and branding contexts.',
-    heroMedia: { type: 'placeholder', label: 'VOLVO VR' },
-    processItems: [
-      { type: 'placeholder', title: 'Clay & Reference', desc: 'High-poly reference renders for shape and proportion validation prior to game-res retopology.' },
-      { type: 'placeholder', title: 'VR Topology', desc: 'Draw call budgets, batching strategy, LOD chains targeting 90fps on VR hardware.' },
-      { type: 'placeholder', title: 'Texture Atlas Workflow', desc: '2K/1K mixed resolution atlas sets. Optimized for memory budget across multiple assets.' },
-      { type: 'placeholder', title: 'UE5 + Unity Delivery', desc: 'Dual-engine package delivery, occlusion culling setup, LOD validation in both engines.' }
-    ]
-  },
-  /* ── ПРОЕКТ: Room8 / AAA Vehicle Assets ── */
-  room8: {
-    name: 'AAA VEHICLE ASSETS',
-    tag: 'AAA · Game-ready · Hard Surface',
-    year: '2022 – 2023',
-    role: '3D Artist',
-    tools: ['3ds Max', 'Substance Painter', 'Marmoset Toolbag', 'ZBrush'],
-    client: 'Room8 Studio (AAA publisher)',
-    desc: 'Produced high-quality, game-ready vehicle assets for AAA projects at Room8 Studio. Work focused on accurate real-world topology, physically accurate PBR material workflows, and full LOD chain production. Collaborated with art leads to maintain consistent visual style and meet strict technical requirements.',
-    specs: { a: 'LOD-managed', b: '4K PBR', c: '4K sets', d: 'Engine-ready' },
-    specLabels: { a: 'Geometry', b: 'Materials', c: 'Textures', d: 'Output' },
-    result: 'Game-ready vehicle assets shipped into AAA production pipeline. Full LOD chains, PBR-accurate materials, style-consistent results validated by art lead review.',
-    heroMedia: { type: 'placeholder', label: 'AAA VEHICLES' },
-    processItems: [
-      { type: 'placeholder', title: 'High-poly Sculpt', desc: 'Surface detail reference in ZBrush — panel lines, bolts, manufacturing marks.' },
-      { type: 'placeholder', title: 'Retopology', desc: 'Accurate edge flow for deformation zones and LOD generation. Budget-managed triangle counts.' },
-      { type: 'placeholder', title: 'Baking — Marmoset', desc: 'Normal, AO, curvature, and ID mask bakes from high-poly. Cage-based workflow.' },
-      { type: 'placeholder', title: 'PBR — Substance Painter', desc: '4K material layers — metallic, roughness, base color, normal. Per-material ID workflow.' }
-    ]
-  },
   /* ── ПРОЕКТ: Mechanical Arm (WIP) ── */
   arm: {
     name: 'MECHANICAL ARM',
@@ -1004,27 +874,6 @@ const projects = {
       },
       { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss white body, black keys, metal pedals and accents. In progress.' },
       { type: 'placeholder', title: 'Final Renders', desc: 'Finished renders with lighting and materials. Will be added when texturing is complete.' }
-    ]
-  },
-
-  /* ── ПРОЕКТ: N-iX / Game Assets ── */
-  nix: {
-    name: 'GAME ASSETS — N-iX',
-    tag: 'Hard Surface · Stylized · Game-ready',
-    year: '2021 – 2022',
-    role: '3D Artist',
-    tools: ['Blender', 'Substance Painter', '3ds Max'],
-    client: 'N-iX (game projects)',
-    desc: 'Created and textured both hard-surface and stylized game assets across diverse projects at N-iX. Deliverables were fully optimized real-time models aligned with project-specific technical requirements. Contributed workflow improvements in collaboration with cross-functional art and development teams.',
-    specs: { a: 'Real-time opt.', b: 'Per-project', c: 'PBR sets', d: 'Game-ready' },
-    specLabels: { a: 'Geometry', b: 'Materials', c: 'Textures', d: 'Output' },
-    result: 'Multiple game-ready asset sets shipped across different project types. Both stylized and hard-surface pipelines, optimized for real-time performance in multiple engines.',
-    heroMedia: { type: 'placeholder', label: 'GAME ASSETS' },
-    processItems: [
-      { type: 'placeholder', title: 'Concept Blocking', desc: 'Form language, proportions, and silhouette established in Blender before detail pass.' },
-      { type: 'placeholder', title: 'Hard-surface Detail', desc: 'Panel lines, bevels, mechanical logic — maintaining believable industrial design language.' },
-      { type: 'placeholder', title: 'UV Unwrap', desc: 'Clean layout, minimal seams, efficient texel density. Hand-placed islands for critical surfaces.' },
-      { type: 'placeholder', title: 'Substance Painter', desc: 'PBR and hand-painted texture workflows, adapted per project style guide and brief.' }
     ]
   }
 };
