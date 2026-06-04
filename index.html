@@ -268,12 +268,20 @@
   .lightbox-caption { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; text-align: center; }
   .zoomable { cursor: zoom-in; }
 
-  /* MODEL VIEWER — 3D переглядач GLB */
-  .project-hero-media model-viewer {
+  /* MODEL VIEWER — окремий блок внизу сторінки проєкту */
+  .model-viewer-block {
+    width: 100%; aspect-ratio: 16/9;
+    position: relative; background: transparent;
+    margin-bottom: 60px;
+  }
+  .model-viewer-block model-viewer {
     width: 100%; height: 100%;
-    background: transparent;
+    background: var(--bg);
     --poster-color: transparent;
   }
+  /* На весь екран — чорний фон */
+  .model-viewer-block:fullscreen { background: #000; }
+  .model-viewer-block:fullscreen model-viewer { background: #000; height: 100vh; }
   .model-hint {
     position: absolute; bottom: 14px; left: 14px;
     font-family: var(--font-mono); font-size: 10px;
@@ -460,7 +468,17 @@
         </div>
       </div>
 
-      <!-- РЯД 2: Volvo (small 4/12) + Room8 (small 4/12) + N-iX (small 4/12) -->
+      <!-- РЯД 2: Yamaha + Volvo + Room8 + N-iX (по 3/12) -->
+
+      <!-- Yamaha Clavinova — з реальним рендером -->
+      <div class="project-card small" onclick="showProject('yamaha')">
+        <img class="card-media" src="YamahaRender.png" alt="Yamaha Clavinova CSP-170">
+        <div class="project-overlay">
+          <div class="project-tag">Product · 3D Viewer · WebGL</div>
+          <div class="project-name">YAMAHA CSP-170</div>
+          <div class="project-meta-line">Interactive 3D Model</div>
+        </div>
+      </div>
 
       <!-- Volvo — заглушка -->
       <div class="project-card small" onclick="showProject('volvo')">
@@ -522,16 +540,6 @@
         </div>
       </div>
 
-      <!-- Yamaha Clavinova — з реальним рендером -->
-      <div class="project-card small" onclick="showProject('yamaha')">
-        <img class="card-media" src="YamahaRender.png" alt="Yamaha Clavinova CSP-170">
-        <div class="project-overlay">
-          <div class="project-tag">Product · 3D Viewer · WebGL</div>
-          <div class="project-name">YAMAHA CSP-170</div>
-          <div class="project-meta-line">Interactive 3D Model</div>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
@@ -586,6 +594,16 @@
         </div>
       </div>
 
+      <!-- Картка Yamaha Clavinova — 3-й -->
+      <div class="work-card" data-cat="product realtime" onclick="showProject('yamaha')">
+        <div class="work-card-image"><img src="YamahaRender.png" alt="Yamaha Clavinova CSP-170"></div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Product · 3D Viewer · WebGL</div>
+          <div class="work-card-name">Yamaha CSP-170</div>
+          <div class="work-card-desc">Yamaha Clavinova CSP-170 — interactive 3D model viewable directly in the browser. Drag to rotate, scroll to zoom.</div>
+        </div>
+      </div>
+
       <!-- Картка Volvo (заглушка без фото) -->
       <div class="work-card" data-cat="vr realtime" onclick="showProject('volvo')">
         <div class="work-card-image"><div class="thumb-grid thumb-1"><div class="thumb-label-3d">VR</div></div></div>
@@ -613,16 +631,6 @@
           <div class="work-card-tag">Hard Surface · Stylized · Game Assets</div>
           <div class="work-card-name">Game Assets — N-iX</div>
           <div class="work-card-desc">Hard-surface and stylized assets for diverse game projects. Optimized real-time models, Blender + Substance Painter pipeline.</div>
-        </div>
-      </div>
-
-      <!-- Картка Yamaha Clavinova — з реальним рендером -->
-      <div class="work-card" data-cat="product realtime" onclick="showProject('yamaha')">
-        <div class="work-card-image"><img src="YamahaRender.png" alt="Yamaha Clavinova CSP-170"></div>
-        <div class="work-card-body">
-          <div class="work-card-tag">Product · 3D Viewer · WebGL</div>
-          <div class="work-card-name">Yamaha CSP-170</div>
-          <div class="work-card-desc">Yamaha Clavinova CSP-170 — interactive 3D model viewable directly in the browser. Drag to rotate, scroll to zoom.</div>
         </div>
       </div>
 
@@ -978,8 +986,10 @@ const projects = {
     specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'WebGL' },
     specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
     result: 'Interactive 3D model viewable directly in the browser — drag to rotate, scroll to zoom. Rendered study and 360° turntable included. Additional renders and materials in progress.',
-    /* heroMedia — інтерактивна 3D модель: обертається мишею прямо у браузері */
-    heroMedia: { type: 'model', src: 'Yamaha_Clavinova_CSP-170.glb' },
+    /* heroMedia — рендер як основне зображення вгорі */
+    heroMedia: { type: 'image', src: 'YamahaRender.png' },
+    /* glbModel — 3D переглядач внизу сторінки окремим блоком */
+    glbModel: { src: 'Yamaha_Clavinova_CSP-170.glb' },
     /* processItems — рендер і 360° відео + заглушки для майбутнього контенту */
     processItems: [
       {
@@ -1082,6 +1092,27 @@ function showProject(slug) {
     </div>
   `).join('');
 
+  // 3D model viewer (якщо проєкт має glbModel — з'являється внизу сторінки)
+  const modelViewerHtml = p.glbModel ? `
+    <div style="margin-top:60px;">
+      <div class="section-label">Interactive 3D Model</div>
+      <div class="model-viewer-block" id="model-viewer-block">
+        <model-viewer
+          src="${p.glbModel.src}"
+          alt="${p.name}"
+          auto-rotate
+          camera-controls
+          shadow-intensity="0.8"
+          exposure="0.9"
+          style="width:100%;height:100%;"
+        ></model-viewer>
+        <div class="model-hint">↻ Drag · Scroll to zoom</div>
+        <div class="video-controls-overlay">
+          <button class="video-ctrl-btn" onclick="toggleModelFullscreen()">Fullscreen</button>
+        </div>
+      </div>
+    </div>` : '';
+
   // Secondary video (TP-7 only)
   const secondaryHtml = p.secondaryVideo ? `
     <div style="margin-top:48px;">
@@ -1129,6 +1160,7 @@ function showProject(slug) {
         <div class="result-text"><strong>Result:</strong> ${p.result}</div>
       </div>
     </div>
+    ${modelViewerHtml}
   `;
   showPage('project');
 }
@@ -1159,6 +1191,17 @@ function toggleHeroSound() {
 
 function toggleHeroFullscreen() {
   const el = document.querySelector('.project-hero-media');
+  if (!el) return;
+  if (!document.fullscreenElement) {
+    el.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+/* Fullscreen для 3D model-viewer блоку */
+function toggleModelFullscreen() {
+  const el = document.getElementById('model-viewer-block');
   if (!el) return;
   if (!document.fullscreenElement) {
     el.requestFullscreen().catch(() => {});
