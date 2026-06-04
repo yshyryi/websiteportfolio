@@ -522,28 +522,9 @@
         </div>
       </div>
 
-      <!-- Yamaha Clavinova — 3D модель -->
+      <!-- Yamaha Clavinova — з реальним рендером -->
       <div class="project-card small" onclick="showProject('yamaha')">
-        <div class="thumb-grid thumb-1" style="height:100%">
-          <div class="thumb-label-3d">3D</div>
-          <div class="thumb-icon">
-            <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
-              <rect x="2" y="10" width="30" height="14" rx="1" stroke="#c8a96e" stroke-width="1" fill="none"/>
-              <rect x="5" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
-              <rect x="9" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
-              <rect x="13" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
-              <rect x="17" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
-              <rect x="21" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
-              <rect x="25" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
-              <rect x="7" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
-              <rect x="11" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
-              <rect x="16" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
-              <rect x="20" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
-              <rect x="24" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
-              <path d="M8 6 L12 2 L22 2 L26 6" stroke="#c8a96e" stroke-width="0.8" fill="none"/>
-            </svg>
-          </div>
-        </div>
+        <img class="card-media" src="YamahaRender.png" alt="Yamaha Clavinova CSP-170">
         <div class="project-overlay">
           <div class="project-tag">Product · 3D Viewer · WebGL</div>
           <div class="project-name">YAMAHA CSP-170</div>
@@ -635,9 +616,9 @@
         </div>
       </div>
 
-      <!-- Картка Yamaha Clavinova — 3D viewer -->
+      <!-- Картка Yamaha Clavinova — з реальним рендером -->
       <div class="work-card" data-cat="product realtime" onclick="showProject('yamaha')">
-        <div class="work-card-image"><div class="thumb-grid thumb-4"><div class="thumb-label-3d">GLB</div></div></div>
+        <div class="work-card-image"><img src="YamahaRender.png" alt="Yamaha Clavinova CSP-170"></div>
         <div class="work-card-body">
           <div class="work-card-tag">Product · 3D Viewer · WebGL</div>
           <div class="work-card-name">Yamaha CSP-170</div>
@@ -996,14 +977,16 @@ const projects = {
     desc: 'Yamaha Clavinova CSP-170 — a full 3D model of the digital piano, viewable interactively in the browser. Drag to rotate, scroll to zoom. The model showcases the instrument\'s form, materials, and detailing. Photos and additional renders will be added as the project develops.',
     specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'WebGL' },
     specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
-    result: 'Real-time 3D model delivered as a GLB file. Fully viewable in-browser with drag-to-rotate and scroll-to-zoom controls. Photos and renders to be added.',
-    /* heroMedia — тип 'model' завантажує <model-viewer> з GLB-файлу */
-    heroMedia: { type: 'model', src: 'Yamaha_Clavinova_CSP-170.glb' },
+    result: 'Full 3D model of the Yamaha Clavinova CSP-170. Rendered clay pass for form study, 360° turntable animation, and interactive GLB viewable in-browser. Additional renders and materials in progress.',
+    /* heroMedia — основне зображення (рендер) вгорі сторінки */
+    heroMedia: { type: 'image', src: 'YamahaRender.png' },
+    /* secondaryVideo — 360° обертання моделі */
+    secondaryVideo: { src: 'Yamaha360.mp4', label: '360° Turntable — full rotation around the model' },
     /* processItems — поки заглушки, фото і відео будуть додані пізніше */
     processItems: [
       { type: 'placeholder', title: 'Reference & Blocking', desc: 'Shape and proportion study from manufacturer references. Block-out in Blender.' },
       { type: 'placeholder', title: 'Hard Surface Detail', desc: 'Panel lines, keys, speaker grilles, control surface — precise mechanical modeling.' },
-      { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss black body, brushed metal accents, fabric grille.' },
+      { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss white body, black keys, metal pedals and accents.' },
       { type: 'placeholder', title: 'GLB Export & Optimization', desc: 'Geometry and texture optimization for real-time web delivery. glTF-compliant export.' }
     ]
   },
