@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<!-- model-viewer — веб-компонент для інтерактивного перегляду GLB/3D прямо в браузері -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   /*
@@ -114,7 +116,7 @@
   .project-card { background: var(--bg2); position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; }
   .project-card.large { grid-column: span 7; aspect-ratio: auto; min-height: 460px; }
   .project-card.medium { grid-column: span 5; }
-  .project-card.small { grid-column: span 4; }
+  .project-card.small { grid-column: span 3; }
   .project-card.wide { grid-column: span 8; }
   .card-media { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
   .project-card:hover .card-media { transform: scale(1.03); }
@@ -265,6 +267,19 @@
   .lightbox-close:hover { color: var(--accent); }
   .lightbox-caption { margin-top: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; text-align: center; }
   .zoomable { cursor: zoom-in; }
+
+  /* MODEL VIEWER — 3D переглядач GLB */
+  .project-hero-media model-viewer {
+    width: 100%; height: 100%;
+    background: transparent;
+    --poster-color: transparent;
+  }
+  .model-hint {
+    position: absolute; bottom: 14px; left: 14px;
+    font-family: var(--font-mono); font-size: 10px;
+    color: rgba(255,255,255,0.35); letter-spacing: 0.12em;
+    text-transform: uppercase; pointer-events: none; z-index: 10;
+  }
 
   /*
   ════════════════════════════════════════════════════════
@@ -507,6 +522,35 @@
         </div>
       </div>
 
+      <!-- Yamaha Clavinova — 3D модель -->
+      <div class="project-card small" onclick="showProject('yamaha')">
+        <div class="thumb-grid thumb-1" style="height:100%">
+          <div class="thumb-label-3d">3D</div>
+          <div class="thumb-icon">
+            <svg width="34" height="28" viewBox="0 0 34 28" fill="none">
+              <rect x="2" y="10" width="30" height="14" rx="1" stroke="#c8a96e" stroke-width="1" fill="none"/>
+              <rect x="5" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
+              <rect x="9" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
+              <rect x="13" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
+              <rect x="17" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
+              <rect x="21" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
+              <rect x="25" y="10" width="2" height="10" fill="rgba(200,169,110,0.15)" stroke="#c8a96e" stroke-width="0.5"/>
+              <rect x="7" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
+              <rect x="11" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
+              <rect x="16" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
+              <rect x="20" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
+              <rect x="24" y="10" width="1.5" height="7" fill="#c8a96e" opacity="0.5"/>
+              <path d="M8 6 L12 2 L22 2 L26 6" stroke="#c8a96e" stroke-width="0.8" fill="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-tag">Product · 3D Viewer · WebGL</div>
+          <div class="project-name">YAMAHA CSP-170</div>
+          <div class="project-meta-line">Interactive 3D Model</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -588,6 +632,16 @@
           <div class="work-card-tag">Hard Surface · Stylized · Game Assets</div>
           <div class="work-card-name">Game Assets — N-iX</div>
           <div class="work-card-desc">Hard-surface and stylized assets for diverse game projects. Optimized real-time models, Blender + Substance Painter pipeline.</div>
+        </div>
+      </div>
+
+      <!-- Картка Yamaha Clavinova — 3D viewer -->
+      <div class="work-card" data-cat="product realtime" onclick="showProject('yamaha')">
+        <div class="work-card-image"><div class="thumb-grid thumb-4"><div class="thumb-label-3d">GLB</div></div></div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Product · 3D Viewer · WebGL</div>
+          <div class="work-card-name">Yamaha CSP-170</div>
+          <div class="work-card-desc">Yamaha Clavinova CSP-170 — interactive 3D model viewable directly in the browser. Drag to rotate, scroll to zoom.</div>
         </div>
       </div>
 
@@ -931,6 +985,29 @@ const projects = {
     /* secondaryVideo відсутній — всі анімації розміщені у processItems */
   },
 
+  /* ── ПРОЕКТ: Yamaha Clavinova CSP-170 ── */
+  yamaha: {
+    name: 'YAMAHA CSP-170',
+    tag: 'Product · 3D Viewer · WebGL',
+    year: '2025',
+    role: 'Personal project',
+    tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
+    client: 'Personal — Product study',
+    desc: 'Yamaha Clavinova CSP-170 — a full 3D model of the digital piano, viewable interactively in the browser. Drag to rotate, scroll to zoom. The model showcases the instrument\'s form, materials, and detailing. Photos and additional renders will be added as the project develops.',
+    specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'WebGL' },
+    specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
+    result: 'Real-time 3D model delivered as a GLB file. Fully viewable in-browser with drag-to-rotate and scroll-to-zoom controls. Photos and renders to be added.',
+    /* heroMedia — тип 'model' завантажує <model-viewer> з GLB-файлу */
+    heroMedia: { type: 'model', src: 'Yamaha_Clavinova_CSP-170.glb' },
+    /* processItems — поки заглушки, фото і відео будуть додані пізніше */
+    processItems: [
+      { type: 'placeholder', title: 'Reference & Blocking', desc: 'Shape and proportion study from manufacturer references. Block-out in Blender.' },
+      { type: 'placeholder', title: 'Hard Surface Detail', desc: 'Panel lines, keys, speaker grilles, control surface — precise mechanical modeling.' },
+      { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss black body, brushed metal accents, fabric grille.' },
+      { type: 'placeholder', title: 'GLB Export & Optimization', desc: 'Geometry and texture optimization for real-time web delivery. glTF-compliant export.' }
+    ]
+  },
+
   /* ── ПРОЕКТ: N-iX / Game Assets ── */
   nix: {
     name: 'GAME ASSETS — N-iX',
@@ -988,6 +1065,19 @@ function showProject(slug) {
       </div>`;
   } else if (p.heroMedia.type === 'image') {
     heroHtml = `<img style="width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in;" src="${p.heroMedia.src}" alt="${p.name}" onclick="openLightbox('${p.heroMedia.src}','image','${p.name}')">`;
+  } else if (p.heroMedia.type === 'model') {
+    /* GLB — інтерактивний 3D переглядач: перетягуй, крути, скролл = зум */
+    heroHtml = `
+      <model-viewer
+        src="${p.heroMedia.src}"
+        alt="${p.name}"
+        auto-rotate
+        camera-controls
+        shadow-intensity="1.2"
+        exposure="0.85"
+        style="width:100%;height:100%;background:transparent;--poster-color:transparent;"
+      ></model-viewer>
+      <div class="model-hint">↻ Drag · Scroll to zoom</div>`;
   } else {
     heroHtml = `<div class="project-hero-label">${p.heroMedia.label}</div>`;
   }
