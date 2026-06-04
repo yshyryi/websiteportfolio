@@ -892,9 +892,10 @@ function showPage(id) {
   const nav = document.getElementById('nav-' + (id === 'project' ? 'work' : id));
   if (nav) nav.classList.add('active');
   window.scrollTo(0, 0);
-  /* Оновлюємо URL: #work, #about тощо — щоб можна було ділитись посиланням */
-  if (!_routing) {
-    const h = (id === 'home' || id === 'project') ? '' : id;
+  /* Оновлюємо URL: #work, #about тощо.
+     'project' пропускаємо — URL вже встановлений у showProject() */
+  if (!_routing && id !== 'project') {
+    const h = id === 'home' ? '' : id;
     history.pushState({page: id}, '', h ? '#' + h : location.pathname + location.search);
   }
 }
