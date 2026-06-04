@@ -1153,6 +1153,7 @@ function showProject(slug) {
     ${secondaryHtml}
     <div class="section-label">Production process</div>
     <div class="process-media-grid">${processHtml}</div>
+    ${modelViewerHtml}
     <div style="margin-top:48px;">
       <div class="section-label">Delivery</div>
       <div class="result-block">
@@ -1160,7 +1161,6 @@ function showProject(slug) {
         <div class="result-text"><strong>Result:</strong> ${p.result}</div>
       </div>
     </div>
-    ${modelViewerHtml}
   `;
   showPage('project');
 }
