@@ -478,13 +478,27 @@
 
       <!-- РЯД 2: Yamaha + Volvo + Room8 + N-iX (по 3/12) -->
 
-      <!-- Yamaha Clavinova — з реальним рендером -->
-      <div class="project-card small" onclick="showProject('yamaha')">
+      <!-- РЯД 2: Yamaha (medium 5/12) + Honda (large 7/12) -->
+
+      <!-- Yamaha Clavinova -->
+      <div class="project-card medium" onclick="showProject('yamaha')">
         <img class="card-media" src="YamahaRender.png" alt="Yamaha Clavinova CSP-170">
         <div class="project-overlay">
           <div class="project-tag">Product · 3D Viewer · WebGL</div>
           <div class="project-name">YAMAHA CSP-170</div>
           <div class="project-meta-line">Interactive 3D Model</div>
+        </div>
+      </div>
+
+      <!-- Honda RC213V -->
+      <div class="project-card large" onclick="showProject('honda')">
+        <div class="thumb-grid thumb-3" style="height:100%;">
+          <div class="thumb-label-3d">HONDA RC213V</div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-tag">Vehicle · Motorsport · Real-time / WebGL</div>
+          <div class="project-name">HONDA RC213V</div>
+          <div class="project-meta-line">MotoGP · Interactive 3D Model</div>
         </div>
       </div>
 
@@ -549,6 +563,20 @@
           <div class="work-card-tag">Product · 3D Viewer · WebGL</div>
           <div class="work-card-name">Yamaha CSP-170</div>
           <div class="work-card-desc">Yamaha Clavinova CSP-170 — interactive 3D model viewable directly in the browser. Drag to rotate, scroll to zoom.</div>
+        </div>
+      </div>
+
+      <!-- Картка Honda RC213V — 4-й -->
+      <div class="work-card" data-cat="realtime hard-surface" onclick="showProject('honda')">
+        <div class="work-card-image">
+          <div class="thumb-grid thumb-3" style="height:100%;aspect-ratio:4/3;">
+            <div class="thumb-label-3d">HONDA</div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Vehicle · Motorsport · Real-time / WebGL</div>
+          <div class="work-card-name">Honda RC213V</div>
+          <div class="work-card-desc">Honda RC213V MotoGP race bike — detailed 3D model with interactive browser viewer. Fairings, frame, suspension, and exhaust system in full detail.</div>
         </div>
       </div>
 
@@ -883,6 +911,26 @@ const projects = {
       { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss white body, black keys, metal pedals and accents. In progress.' },
       { type: 'placeholder', title: 'Final Renders', desc: 'Finished renders with lighting and materials. Will be added when texturing is complete.' }
     ]
+  },
+
+  /* ── ПРОЕКТ: Honda RC213V ── */
+  honda: {
+    name: 'HONDA RC213V',
+    tag: 'Vehicle · Motorsport · Real-time / WebGL',
+    year: '2025',
+    role: 'Personal project',
+    tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
+    client: 'Personal — Vehicle study',
+    desc: 'Honda RC213V — a detailed 3D model of the factory MotoGP machine. The project focuses on the complex mechanical geometry of a modern prototype racer: fairings, frame, suspension, swingarm, and exhaust system. The model is published as an interactive 3D viewer — drag to rotate, scroll to zoom. Additional renders and breakdowns in progress.',
+    specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'WebGL' },
+    specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
+    result: 'Interactive 3D model published to Sketchfab — viewable in the browser on any device. Additional renders, material breakdowns, and clay renders will be added as the project develops.',
+    heroMedia: { type: 'placeholder', label: 'HONDA RC213V' },
+    sketchfabEmbed: { id: '6f0f0cae80d4479388dbb4df3432ca0c', title: 'Honda RC213V' },
+    processItems: [
+      { type: 'placeholder', title: 'Renders coming soon', desc: 'High-quality renders and clay passes will be added as the project develops.' },
+      { type: 'placeholder', title: 'Material Breakdown', desc: 'PBR material setup — bodywork, carbon fiber, metal components and rubber. In progress.' }
+    ]
   }
 };
 
@@ -955,6 +1003,32 @@ function showProject(slug) {
     </div>
   `).join('');
 
+  // Sketchfab embed (якщо проєкт має sketchfabEmbed)
+  const sketchfabHtml = p.sketchfabEmbed ? `
+    <div style="margin-top:60px;">
+      <div class="section-label">Interactive 3D Model</div>
+      <div class="model-viewer-block" id="model-viewer-block">
+        <iframe
+          title="${p.sketchfabEmbed.title}"
+          frameborder="0"
+          allowfullscreen
+          mozallowfullscreen="true"
+          webkitallowfullscreen="true"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          xr-spatial-tracking
+          execution-while-out-of-viewport
+          execution-while-not-rendered
+          web-share
+          src="https://sketchfab.com/models/${p.sketchfabEmbed.id}/embed"
+          style="width:100%;height:100%;border:0;display:block;"
+        ></iframe>
+      </div>
+      <div class="video-label">
+        <span class="video-label-text">${p.sketchfabEmbed.title} — Drag to rotate · Scroll to zoom</span>
+        <a href="https://sketchfab.com/3d-models/${p.sketchfabEmbed.id}" target="_blank" rel="nofollow" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;">View on Sketchfab ↗</a>
+      </div>
+    </div>` : '';
+
   // 3D model viewer (якщо проєкт має glbModel — з'являється внизу сторінки)
   const modelViewerHtml = p.glbModel ? `
     <div style="margin-top:60px;">
@@ -1016,7 +1090,7 @@ function showProject(slug) {
     ${secondaryHtml}
     <div class="section-label">Production process</div>
     <div class="process-media-grid">${processHtml}</div>
-    ${modelViewerHtml}
+    ${modelViewerHtml}${sketchfabHtml}
     <div style="margin-top:48px;">
       <div class="section-label">Delivery</div>
       <div class="result-block">
