@@ -504,7 +504,7 @@
 
       <!-- Portable Restroom -->
       <div class="project-card wide" onclick="showProject('restroom')">
-        <img class="card-media" src="RestroomFront.jpg" alt="Portable Restroom">
+        <img class="card-media" src="RestroomWire.jpg" alt="Portable Restroom">
         <div class="project-overlay">
           <div class="project-tag">Environment · Hard Surface · PBR</div>
           <div class="project-name">PORTABLE RESTROOM</div>
@@ -591,7 +591,7 @@
       <!-- Картка Portable Restroom — 5-й -->
       <div class="work-card" data-cat="hard-surface product" onclick="showProject('restroom')">
         <div class="work-card-image">
-          <img src="RestroomFront.jpg" alt="Portable Restroom">
+          <img src="RestroomWire.jpg" alt="Portable Restroom">
         </div>
         <div class="work-card-body">
           <div class="work-card-tag">Environment · Hard Surface · PBR</div>
@@ -941,22 +941,22 @@ const projects = {
   /* ── ПРОЕКТ: Portable Restroom ── */
   restroom: {
     name: 'PORTABLE RESTROOM',
-    tag: 'Environment · Hard Surface · PBR · Substance Painter',
-    year: '2024',
+    tag: 'Environment · Low Poly · PBR · 3Ds Max',
+    year: '2021',
     role: 'Personal project',
-    tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
-    client: 'Personal — Environment asset study',
-    desc: 'A detailed environment asset — portable restroom trailer with full PBR material treatment. Weathered paint, graffiti decals, metal surfaces, rubber tires, and scattered urban props create a lived-in street scene. Multiple camera angles were rendered to document the surface detail and material work across all sides of the asset.',
-    specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'Sketchfab' },
+    tools: ['3Ds Max', 'Substance Painter', 'glTF / GLB'],
+    client: 'Personal — Environment asset',
+    desc: 'A portable city public restroom — low poly environment asset built in 3Ds Max and textured in Substance Painter. The model features layered graffiti across multiple sides, weathered paint, urban debris, and a detailed trailer undercarriage with wheel and hitch. PBR materials cover painted metal, rubber, glass, and sticker decals.',
+    specs: { a: 'Low Poly', b: 'PBR', c: 'GLB', d: 'Sketchfab' },
     specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
-    result: 'Fully textured environment asset with graffiti, weathering, and surrounding props. Interactive 3D model published to Sketchfab. Four final renders documenting front, rear, and side angles.',
-    heroMedia: { type: 'image', src: 'RestroomFront.jpg' },
+    result: 'Fully textured low poly environment asset with graffiti, weathering, and surrounding street props. Interactive 3D model published to Sketchfab. Multiple render angles documenting material work across all sides.',
+    heroMedia: { type: 'image', src: 'RestroomWire.jpg' },
     sketchfabEmbed: { id: '876bdfb1df5e401aad3d7482cf1f87c1', title: 'Portable Restroom' },
     processItems: [
+      { type: 'image', src: 'RestroomWire.jpg', title: 'Front View', desc: 'Front face — double-door panel with graffiti tags, handles, and warning stickers. Mesh overlay shows polygon structure.' },
+      { type: 'image', src: 'RestroomPink.jpg', title: 'Side View — Pink Panel', desc: 'Side panel with layered graffiti, weathered pink paint, and scattered urban debris around the base.' },
       { type: 'image', src: 'RestroomBack.jpg', title: 'Rear Three-Quarter', desc: 'Rear three-quarter angle — trailer hitch, wheel, ladder, and rear panel graffiti.' },
-      { type: 'image', src: 'RestroomPink.jpg', title: 'Front View — Pink Variant', desc: 'Front face with layered graffiti, weathered pink paint, and scattered urban debris around the base.' },
-      { type: 'image', src: 'RestroomWire.jpg', title: 'Wireframe — Front View', desc: 'Wireframe overlay render showing mesh topology, edge flow, and prop placement around the trailer.' },
-      { type: 'image', src: 'RestroomFront.jpg', title: 'Front Three-Quarter', desc: 'Full render from front three-quarter — doors, graffiti tags, props, and wet asphalt ground material.' }
+      { type: 'image', src: 'RestroomFront.jpg', title: 'Wireframe View', desc: 'Wireframe render showing low poly mesh topology and edge flow across the full asset.' }
     ]
   },
 
