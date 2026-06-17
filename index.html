@@ -508,7 +508,19 @@
         <div class="project-overlay">
           <div class="project-tag">Environment · Hard Surface · PBR</div>
           <div class="project-name">PORTABLE RESTROOM</div>
-          <div class="project-meta-line">Blender · Substance Painter · Sketchfab</div>
+          <div class="project-meta-line">3Ds Max · Substance Painter · Sketchfab</div>
+        </div>
+      </div>
+
+      <!-- Heritage Scanning -->
+      <div class="project-card medium" onclick="showProject('heritage')">
+        <div class="thumb-grid thumb-4" style="height:100%;">
+          <div class="thumb-label-3d">HERITAGE</div>
+        </div>
+        <div class="project-overlay">
+          <div class="project-tag">Cultural Heritage · Photogrammetry</div>
+          <div class="project-name">HERITAGE SCANNING</div>
+          <div class="project-meta-line">Skeiron · Chain & Chainmail</div>
         </div>
       </div>
 
@@ -594,9 +606,23 @@
           <img src="RestroomWire.jpg" alt="Portable Restroom">
         </div>
         <div class="work-card-body">
-          <div class="work-card-tag">Environment · Hard Surface · PBR</div>
+          <div class="work-card-tag">Environment · Low Poly · PBR</div>
           <div class="work-card-name">Portable Restroom</div>
-          <div class="work-card-desc">Urban environment asset — portable restroom trailer with PBR materials, graffiti, weathering, and scattered street props. Blender · Substance Painter.</div>
+          <div class="work-card-desc">Urban environment asset — portable restroom trailer with PBR materials, graffiti, weathering, and scattered street props. 3Ds Max · Substance Painter.</div>
+        </div>
+      </div>
+
+      <!-- Картка Heritage Scanning — 6-й -->
+      <div class="work-card" data-cat="realtime" onclick="showProject('heritage')">
+        <div class="work-card-image">
+          <div class="thumb-grid thumb-4" style="height:100%;aspect-ratio:4/3;">
+            <div class="thumb-label-3d">HERITAGE</div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Cultural Heritage · Photogrammetry</div>
+          <div class="work-card-name">Heritage Scanning</div>
+          <div class="work-card-desc">Photogrammetric scanning and 3D reconstruction of cultural heritage objects with Skeiron. Assembly and geometry optimization of scan data for real-time delivery.</div>
         </div>
       </div>
 
@@ -938,6 +964,29 @@ const projects = {
     ]
   },
 
+  /* ── ПРОЕКТ: Cultural Heritage Scanning ── */
+  heritage: {
+    name: 'HERITAGE SCANNING',
+    tag: 'Cultural Heritage · Photogrammetry · Asset Optimization',
+    year: '2024',
+    role: '3D Reconstruction & Optimization',
+    tools: ['Photogrammetry', 'Blender', 'GLB / glTF'],
+    client: 'Skeiron — Cultural Heritage Documentation',
+    desc: 'Photogrammetric scanning and 3D reconstruction of cultural heritage objects in collaboration with Skeiron. The work involved assembling raw scan data and optimizing geometry — reducing polygon count while preserving surface detail, material fidelity, and accurate scale for archival and real-time delivery. Assets include a historical chain and chainmail piece.',
+    specs: { a: 'Photogrammetry', b: 'PBR', c: 'GLB', d: 'Optimized' },
+    specLabels: { a: 'Method', b: 'Materials', c: 'Format', d: 'Workflow' },
+    result: 'Optimized real-time 3D models of cultural heritage artifacts — ready for browser viewing, archival documentation, and educational use. Two interactive models: historical chain and chainmail.',
+    heroMedia: { type: 'placeholder', label: 'HERITAGE' },
+    glbModels: [
+      { src: 'Chain.glb',      title: 'Chain',      label: 'Interactive 3D Model — Chain' },
+      { src: 'chainmail.glb',  title: 'Chainmail',  label: 'Interactive 3D Model — Chainmail' }
+    ],
+    processItems: [
+      { type: 'placeholder', title: 'Scan Reference', desc: 'Raw photogrammetry capture — reference images and initial mesh reconstruction from scan session.' },
+      { type: 'placeholder', title: 'Optimized Mesh', desc: 'Geometry optimization — polygon reduction with preserved surface detail, UV layout, and PBR material bake.' }
+    ]
+  },
+
   /* ── ПРОЕКТ: Portable Restroom ── */
   restroom: {
     name: 'PORTABLE RESTROOM',
@@ -1076,6 +1125,27 @@ function showProject(slug) {
       </div>
     </div>` : '';
 
+  // Кілька GLB моделей (масив glbModels)
+  const glbModelsHtml = p.glbModels ? p.glbModels.map((m, i) => `
+    <div style="margin-top:60px;">
+      <div class="section-label">${m.label || m.title}</div>
+      <div class="model-viewer-block" id="model-viewer-block-${i}">
+        <model-viewer
+          src="${m.src}"
+          alt="${m.title}"
+          auto-rotate
+          camera-controls
+          shadow-intensity="0.8"
+          exposure="0.9"
+          style="width:100%;height:100%;"
+        ></model-viewer>
+        <div class="model-hint">↻ Drag · Scroll to zoom</div>
+        <div class="video-controls-overlay">
+          <button class="video-ctrl-btn" onclick="toggleModelFullscreen('model-viewer-block-${i}')">Fullscreen</button>
+        </div>
+      </div>
+    </div>`).join('') : '';
+
   // 3D model viewer (якщо проєкт має glbModel — з'являється внизу сторінки)
   const modelViewerHtml = p.glbModel ? `
     <div style="margin-top:60px;">
@@ -1137,7 +1207,7 @@ function showProject(slug) {
     ${secondaryHtml}
     <div class="section-label">Production process</div>
     <div class="process-media-grid">${processHtml}</div>
-    ${modelViewerHtml}${sketchfabHtml}
+    ${modelViewerHtml}${glbModelsHtml}${sketchfabHtml}
     <div style="margin-top:48px;">
       <div class="section-label">Delivery</div>
       <div class="result-block">
@@ -1220,8 +1290,8 @@ function toggleHeroFullscreen() {
 }
 
 /* Fullscreen для 3D model-viewer блоку */
-function toggleModelFullscreen() {
-  const el = document.getElementById('model-viewer-block');
+function toggleModelFullscreen(blockId) {
+  const el = document.getElementById(blockId || 'model-viewer-block');
   if (!el) return;
   if (!document.fullscreenElement) {
     el.requestFullscreen().catch(() => {});
