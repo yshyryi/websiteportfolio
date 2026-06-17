@@ -500,6 +500,18 @@
         </div>
       </div>
 
+      <!-- РЯД 3: Portable Restroom (wide 8/12) -->
+
+      <!-- Portable Restroom -->
+      <div class="project-card wide" onclick="showProject('restroom')">
+        <img class="card-media" src="RestroomFront.jpg" alt="Portable Restroom">
+        <div class="project-overlay">
+          <div class="project-tag">Environment · Hard Surface · PBR</div>
+          <div class="project-name">PORTABLE RESTROOM</div>
+          <div class="project-meta-line">Blender · Substance Painter · Sketchfab</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -573,6 +585,18 @@
           <div class="work-card-tag">Vehicle · Motorsport · Real-time / WebGL</div>
           <div class="work-card-name">Honda RC213V</div>
           <div class="work-card-desc">Honda RC213V MotoGP race bike — detailed 3D model with interactive browser viewer. Fairings, frame, suspension, and exhaust system in full detail.</div>
+        </div>
+      </div>
+
+      <!-- Картка Portable Restroom — 5-й -->
+      <div class="work-card" data-cat="hard-surface product" onclick="showProject('restroom')">
+        <div class="work-card-image">
+          <img src="RestroomFront.jpg" alt="Portable Restroom">
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tag">Environment · Hard Surface · PBR</div>
+          <div class="work-card-name">Portable Restroom</div>
+          <div class="work-card-desc">Urban environment asset — portable restroom trailer with PBR materials, graffiti, weathering, and scattered street props. Blender · Substance Painter.</div>
         </div>
       </div>
 
@@ -906,6 +930,28 @@ const projects = {
       },
       { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss white body, black keys, metal pedals and accents. In progress.' },
       { type: 'placeholder', title: 'Final Renders', desc: 'Finished renders with lighting and materials. Will be added when texturing is complete.' }
+    ]
+  },
+
+  /* ── ПРОЕКТ: Portable Restroom ── */
+  restroom: {
+    name: 'PORTABLE RESTROOM',
+    tag: 'Environment · Hard Surface · PBR · Substance Painter',
+    year: '2024',
+    role: 'Personal project',
+    tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
+    client: 'Personal — Environment asset study',
+    desc: 'A detailed environment asset — portable restroom trailer with full PBR material treatment. Weathered paint, graffiti decals, metal surfaces, rubber tires, and scattered urban props create a lived-in street scene. Multiple camera angles were rendered to document the surface detail and material work across all sides of the asset.',
+    specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'Sketchfab' },
+    specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
+    result: 'Fully textured environment asset with graffiti, weathering, and surrounding props. Interactive 3D model published to Sketchfab. Four final renders documenting front, rear, and side angles.',
+    heroMedia: { type: 'image', src: 'RestroomFront.jpg' },
+    sketchfabEmbed: { id: '876bdfb1df5e401aad3d7482cf1f87c1', title: 'Portable Restroom' },
+    processItems: [
+      { type: 'image', src: 'RestroomWire.jpg', title: 'Wireframe — Front View', desc: 'Wireframe overlay render showing mesh topology, edge flow, and prop placement around the trailer.' },
+      { type: 'image', src: 'RestroomPink.jpg', title: 'Front View — Pink Variant', desc: 'Front face with layered graffiti, weathered pink paint, and scattered urban debris around the base.' },
+      { type: 'image', src: 'RestroomBack.jpg', title: 'Rear Three-Quarter', desc: 'Rear three-quarter angle — trailer hitch, wheel, ladder, and rear panel graffiti.' },
+      { type: 'image', src: 'RestroomFront.jpg', title: 'Front Three-Quarter', desc: 'Full render from front three-quarter — doors, graffiti tags, props, and wet asphalt ground material.' }
     ]
   },
 
