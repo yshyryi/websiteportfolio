@@ -469,13 +469,11 @@
       <div class="project-card medium" onclick="showProject('tp7')">
         <img class="card-media" src="HeroImage.png" alt="TP-7 Field Recorder">
         <div class="project-overlay">
-          <div class="project-tag">Product Visualization · Animation · Blender</div>
+          <div class="project-tag">Product Viz · Animation · Blender</div>
           <div class="project-name">TP-7 FIELD RECORDER</div>
           <div class="project-meta-line">Teenage Engineering · Cycles · Audio-driven animation</div>
         </div>
       </div>
-
-      <!-- РЯД 2: Yamaha + Volvo + Room8 + N-iX (по 3/12) -->
 
       <!-- РЯД 2: Yamaha (medium 5/12) + Honda (large 7/12) -->
 
@@ -483,7 +481,7 @@
       <div class="project-card medium" onclick="showProject('yamaha')">
         <img class="card-media" src="YamahaRender.png" alt="Yamaha Clavinova CSP-170">
         <div class="project-overlay">
-          <div class="project-tag">Product · 3D Viewer · WebGL</div>
+          <div class="project-tag">Product · Real-time / WebGL</div>
           <div class="project-name">YAMAHA CSP-170</div>
           <div class="project-meta-line">Interactive 3D Model</div>
         </div>
@@ -493,7 +491,7 @@
       <div class="project-card large" onclick="showProject('honda')">
         <img class="card-media" src="502_black.png" alt="Honda RC213V">
         <div class="project-overlay">
-          <div class="project-tag">Vehicle · Motorsport · Real-time / WebGL</div>
+          <div class="project-tag">Vehicle · Real-time / WebGL</div>
           <div class="project-name">HONDA RC213V</div>
           <div class="project-meta-line">MotoGP · Interactive 3D Model</div>
         </div>
@@ -505,7 +503,7 @@
       <div class="project-card wide" onclick="showProject('restroom')">
         <img class="card-media" src="RestroomWire.jpg" alt="Portable Restroom">
         <div class="project-overlay">
-          <div class="project-tag">Environment · Hard Surface · PBR</div>
+          <div class="project-tag">Environment · Low Poly · PBR</div>
           <div class="project-name">PORTABLE RESTROOM</div>
           <div class="project-meta-line">3Ds Max · Substance Painter · Sketchfab</div>
         </div>
@@ -537,10 +535,11 @@
          Щоб додати новий фільтр: додайте кнопку і відповідний data-cat на картці ── -->
     <div class="filters">
       <button class="filter-btn active" onclick="filterWork('all',this)">All</button>
-      <button class="filter-btn" onclick="filterWork('product',this)">Product Render</button>
+      <button class="filter-btn" onclick="filterWork('product',this)">Product Viz</button>
       <button class="filter-btn" onclick="filterWork('hard-surface',this)">Hard Surface</button>
+      <button class="filter-btn" onclick="filterWork('environment',this)">Environment</button>
       <button class="filter-btn" onclick="filterWork('realtime',this)">Real-time / WebGL</button>
-      <button class="filter-btn" onclick="filterWork('vr',this)">VR / AR</button>
+      <button class="filter-btn" onclick="filterWork('scan',this)">Photogrammetry</button>
     </div>
 
     <!-- ── КАРТКИ ПРОЕКТІВ ──
@@ -552,14 +551,14 @@
     <div class="work-grid" id="work-grid">
 
       <!-- Картка Mechanical Arm (з реальним фото) — 1-й -->
-      <div class="work-card" data-cat="hard-surface product" onclick="showProject('arm')">
+      <div class="work-card" data-cat="hard-surface" onclick="showProject('arm')">
         <div class="work-card-image">
           <img src="ArmMain.png" alt="Mechanical Arm">
         </div>
         <div class="work-card-body">
-          <div class="work-card-tag">Hard Surface · Character Asset · WIP</div>
+          <div class="work-card-tag">Hard Surface · Character · WIP</div>
           <div class="work-card-name">Mechanical Arm</div>
-          <div class="work-card-desc">Personal WIP — form exploration and mechanical design of a detached robotic arm. Sub-D modeling, clay render stage. Blender / Cycles.</div>
+          <div class="work-card-desc">Personal WIP exploring the form and mechanical design of a detached robotic arm. Hard-surface modeling at the clay render stage. Blender · Cycles.</div>
         </div>
       </div>
 
@@ -569,55 +568,55 @@
           <img src="HeroImage.png" alt="TP-7 Field Recorder">
         </div>
         <div class="work-card-body">
-          <div class="work-card-tag">Product Visualization · Animation</div>
+          <div class="work-card-tag">Product Viz · Animation</div>
           <div class="work-card-name">TP-7 Field Recorder</div>
-          <div class="work-card-desc">Teenage Engineering TP-7 — a study of industrial surfaces in cold coastal light. Audio-driven animation, sub-D modeling, Blender / Cycles.</div>
+          <div class="work-card-desc">Teenage Engineering TP-7 — a study of industrial surfaces in cold coastal light. Audio-driven animation and sub-D modeling. Blender · Cycles.</div>
         </div>
       </div>
 
       <!-- Картка Yamaha Clavinova — 3-й -->
-      <div class="work-card" data-cat="product realtime" onclick="showProject('yamaha')">
+      <div class="work-card" data-cat="product hard-surface realtime" onclick="showProject('yamaha')">
         <div class="work-card-image"><img src="YamahaRender.png" alt="Yamaha Clavinova CSP-170"></div>
         <div class="work-card-body">
-          <div class="work-card-tag">Product · 3D Viewer · WebGL</div>
+          <div class="work-card-tag">Product · Real-time / WebGL</div>
           <div class="work-card-name">Yamaha CSP-170</div>
-          <div class="work-card-desc">Yamaha Clavinova CSP-170 — interactive 3D model viewable directly in the browser. Drag to rotate, scroll to zoom.</div>
+          <div class="work-card-desc">Yamaha Clavinova CSP-170 — full digital piano model with an interactive in-browser viewer. Drag to rotate, scroll to zoom. Blender · Substance Painter.</div>
         </div>
       </div>
 
       <!-- Картка Honda RC213V — 4-й -->
-      <div class="work-card" data-cat="realtime hard-surface" onclick="showProject('honda')">
+      <div class="work-card" data-cat="hard-surface realtime" onclick="showProject('honda')">
         <div class="work-card-image">
           <img src="502_black.png" alt="Honda RC213V">
         </div>
         <div class="work-card-body">
-          <div class="work-card-tag">Vehicle · Motorsport · Real-time / WebGL</div>
+          <div class="work-card-tag">Vehicle · Real-time / WebGL</div>
           <div class="work-card-name">Honda RC213V</div>
-          <div class="work-card-desc">Honda RC213V MotoGP race bike — detailed 3D model with interactive browser viewer. Fairings, frame, suspension, and exhaust system in full detail.</div>
+          <div class="work-card-desc">Honda RC213V MotoGP prototype — detailed race-bike model with an interactive WebGL viewer. Fairings, frame, suspension, and exhaust in full detail.</div>
         </div>
       </div>
 
       <!-- Картка Portable Restroom — 5-й -->
-      <div class="work-card" data-cat="hard-surface product" onclick="showProject('restroom')">
+      <div class="work-card" data-cat="environment realtime" onclick="showProject('restroom')">
         <div class="work-card-image">
           <img src="RestroomWire.jpg" alt="Portable Restroom">
         </div>
         <div class="work-card-body">
           <div class="work-card-tag">Environment · Low Poly · PBR</div>
           <div class="work-card-name">Portable Restroom</div>
-          <div class="work-card-desc">Urban environment asset — portable restroom trailer with PBR materials, graffiti, weathering, and scattered street props. 3Ds Max · Substance Painter.</div>
+          <div class="work-card-desc">Urban environment asset — portable restroom trailer with PBR materials, graffiti, and scattered street props. 3Ds Max · Substance Painter.</div>
         </div>
       </div>
 
       <!-- Картка Heritage Scanning — 6-й -->
-      <div class="work-card" data-cat="realtime" onclick="showProject('heritage')">
+      <div class="work-card" data-cat="scan realtime" onclick="showProject('heritage')">
         <div class="work-card-image">
           <img src="MajorChain.png" alt="Heritage Scanning">
         </div>
         <div class="work-card-body">
           <div class="work-card-tag">Cultural Heritage · Photogrammetry</div>
           <div class="work-card-name">Heritage Scanning</div>
-          <div class="work-card-desc">Photogrammetric scanning and 3D reconstruction of cultural heritage objects with Skeiron. Assembly and geometry optimization of scan data for real-time delivery.</div>
+          <div class="work-card-desc">Photogrammetric scanning and 3D reconstruction of cultural heritage artifacts with Skeiron. Scan assembly and geometry optimization for real-time delivery.</div>
         </div>
       </div>
 
@@ -877,7 +876,7 @@ const projects = {
   /* ── ПРОЕКТ: TP-7 Field Recorder ── */
   tp7: {
     name: 'TP-7 FIELD RECORDER',
-    tag: 'Product Visualization · Animation · Blender / Cycles',
+    tag: 'Product Viz · Animation · Blender / Cycles',
     year: '2024',
     role: 'Personal project / Portfolio',
     tools: ['Blender', 'Cycles', 'Sub-D Modeling'],
@@ -964,7 +963,7 @@ const projects = {
   /* ── ПРОЕКТ: Yamaha Clavinova CSP-170 ── */
   yamaha: {
     name: 'YAMAHA CSP-170',
-    tag: 'Product · 3D Viewer · WebGL',
+    tag: 'Product · Real-time · WebGL',
     year: '2025',
     role: 'Personal project',
     tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
@@ -1042,7 +1041,7 @@ const projects = {
   /* ── ПРОЕКТ: Honda RC213V ── */
   honda: {
     name: 'HONDA RC213V',
-    tag: 'Vehicle · Motorsport · Real-time / WebGL',
+    tag: 'Vehicle · Motorsport · Real-time',
     year: '2025',
     role: 'Personal project',
     tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
