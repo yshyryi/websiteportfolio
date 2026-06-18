@@ -853,9 +853,8 @@
     name        — назва проекту (великими літерами)
     tag         — рядок під назвою в шапці проекту
     year        — рік / діапазон
-    role        — ваша роль
+    role        — ваша роль (для командних робіт можна вказати клієнта, напр. "Skeiron · 3D Reconstruction")
     tools       — масив інструментів (відображаються як теги)
-    client      — клієнт або тип роботи
     desc        — довгий опис проекту (2–4 речення)
     specs       — 4 технічні показники (a, b, c, d)
     specLabels  — підписи до показників
@@ -880,7 +879,6 @@ const projects = {
     year: '2026',
     role: 'Personal project / Portfolio',
     tools: ['Blender', 'Cycles', 'Sub-D Modeling'],
-    client: 'Personal — Teenage Engineering study',
     desc: 'An exploration of the Teenage Engineering TP-7 Field Recorder\'s form through the lens of cold, natural light. The intent was to observe how the device\'s industrial surfaces — brushed aluminum, knurled metal, and glass — react to an atmosphere inspired by the Icelandic coast. Minimal organic elements provide subtle textural contrast to the precise geometry.',
     /* specs — 4 блоки статистики під описом: значення + підпис */
     specs: { a: 'Sub-D', b: 'Cycles', c: 'Audio-driven', d: 'Blender' },
@@ -926,7 +924,6 @@ const projects = {
     year: '2026',
     role: 'Personal project / WIP',
     tools: ['Blender', 'Cycles', 'Sub-D Modeling'],
-    client: 'Personal — Design exploration',
     desc: 'A personal WIP project focused on designing and modeling a detached mechanical arm. The main focus at this stage is form exploration, overall silhouette, mechanical logic, and finding a believable visual language for the object. The model is rendered in a clay material to keep attention on shapes, proportions, and surface rhythm before moving into textures and final material work. The project includes concept development, hard-surface modeling, design iteration, and animation tests to explore how the arm feels as a mechanical object.',
     /* specs — 4 блоки статистики */
     specs: { a: 'Sub-D', b: 'Cycles', c: 'Clay', d: 'WIP' },
@@ -967,7 +964,6 @@ const projects = {
     year: '2021',
     role: 'Commercial — ongoing refinement',
     tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
-    client: 'Commercial',
     desc: 'Yamaha Clavinova CSP-170 — a full 3D model of the digital piano, viewable interactively in the browser. Drag to rotate, scroll to zoom. The model showcases the instrument\'s form, materials, and detailing. Photos and additional renders will be added as the project develops.',
     specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'WebGL' },
     specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
@@ -998,9 +994,8 @@ const projects = {
     name: 'HERITAGE SCANNING',
     tag: 'Cultural Heritage · Photogrammetry · Asset Optimization',
     year: '2023',
-    role: '3D Reconstruction & Optimization',
+    role: 'Skeiron · 3D Reconstruction & Optimization',
     tools: ['Photogrammetry', 'Blender', 'GLB / glTF'],
-    client: 'Skeiron — Cultural Heritage Documentation',
     desc: 'Photogrammetric scanning and 3D reconstruction of cultural heritage objects in collaboration with Skeiron. The work involved assembling raw scan data and optimizing geometry — reducing polygon count while preserving surface detail, material fidelity, and accurate scale for archival and real-time delivery. Assets include a historical chain and chainmail piece.',
     specs: { a: 'Photogrammetry', b: 'PBR', c: 'GLB', d: 'Optimized' },
     specLabels: { a: 'Method', b: 'Materials', c: 'Format', d: 'Workflow' },
@@ -1023,7 +1018,6 @@ const projects = {
     year: '2021',
     role: 'Personal project',
     tools: ['3Ds Max', 'Substance Painter', 'glTF / GLB'],
-    client: 'Personal — Environment asset',
     desc: 'A portable city public restroom — low poly environment asset built in 3Ds Max and textured in Substance Painter. The model features layered graffiti across multiple sides, weathered paint, urban debris, and a detailed trailer undercarriage with wheel and hitch. PBR materials cover painted metal, rubber, glass, and sticker decals.',
     specs: { a: 'Low Poly', b: 'PBR', c: 'GLB', d: 'Sketchfab' },
     specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
@@ -1045,7 +1039,6 @@ const projects = {
     year: '2015',
     role: 'Commercial',
     tools: ['Blender', 'Substance Painter', 'glTF / GLB'],
-    client: 'Commercial',
     desc: 'Honda RC213V — a detailed 3D model of the factory MotoGP machine. The project focuses on the complex mechanical geometry of a modern prototype racer: fairings, frame, suspension, swingarm, and exhaust system. The model is published as an interactive 3D viewer — drag to rotate, scroll to zoom. Additional renders and breakdowns in progress.',
     specs: { a: 'Sub-D', b: 'PBR', c: 'GLB', d: 'WebGL' },
     specLabels: { a: 'Workflow', b: 'Materials', c: 'Format', d: 'Delivery' },
@@ -1223,7 +1216,6 @@ function showProject(slug) {
         <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">${p.role}</div></div>
         <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-tags">${toolTags}</div></div>
         <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">${p.year}</div></div>
-        <div class="meta-item"><div class="meta-label">Client</div><div class="meta-value">${p.client}</div></div>
       </div>
     </div>
     <div class="section-label">Technical specs</div>
