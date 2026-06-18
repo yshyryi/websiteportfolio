@@ -210,17 +210,16 @@
   .video-label-tag { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
 
   /* LAB */
-  .lab-viewer { background: var(--bg2); border: 1px solid var(--border); width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 24px; overflow: hidden; }
-  .model-orbit { width: 110px; height: 110px; border: 1px solid rgba(255,60,125,0.14); border-radius: 50%; position: relative; animation: orbit-rotate 8s linear infinite; }
-  .model-orbit::before { content: ''; position: absolute; top: 50%; left: -5px; width: 9px; height: 9px; background: var(--accent); border-radius: 50%; transform: translateY(-50%); opacity: 0.6; }
-  .model-orbit-inner { width: 55px; height: 55px; border: 1px solid rgba(255,60,125,0.09); border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: orbit-rotate 4s linear infinite reverse; }
-  @keyframes orbit-rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .lab-grid { display: grid; grid-template-columns: 1fr 270px; gap: 36px; margin-bottom: 72px; }
-  .lab-specs { background: var(--surface); border: 1px solid var(--border); padding: 22px; }
-  .lab-spec-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border); }
-  .lab-spec-row:last-child { border-bottom: none; }
-  .lab-spec-key { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
-  .lab-spec-val { font-family: var(--font-mono); font-size: 12px; color: var(--text); font-weight: 500; }
+  .lab-model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 60px; }
+  .lab-model-card { background: var(--bg2); display: flex; flex-direction: column; cursor: pointer; }
+  .lab-model-card:hover .lab-model-name { color: var(--accent); }
+  .lab-model-viewer { aspect-ratio: 4/3; position: relative; background: var(--bg); overflow: hidden; }
+  .lab-model-viewer model-viewer { width: 100%; height: 100%; }
+  .lab-model-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; color: var(--text-dim); text-transform: uppercase; pointer-events: none; opacity: 0.6; }
+  .lab-model-info { padding: 18px 20px 22px; border-top: 1px solid var(--border); }
+  .lab-model-tag { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; opacity: 0.8; }
+  .lab-model-name { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.04em; color: var(--text); margin-bottom: 10px; transition: color 0.2s; }
+  .lab-model-link { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; text-decoration: none; }
 
   /* ABOUT */
   .about-layout { display: grid; grid-template-columns: 1fr 360px; gap: 90px; max-width: 1200px; margin: 0 auto; padding: 72px 48px 110px; }
@@ -370,7 +369,7 @@
     .exp-entry { grid-template-columns: 1fr; gap: 6px; padding: 18px 20px; }
 
     /* Lab */
-    .lab-grid { grid-template-columns: 1fr; gap: 24px; }
+    .lab-model-grid { grid-template-columns: 1fr; }
 
     /* На мобільному — всі медіа по 1 в рядку, без винятків */
     .process-media-grid { grid-template-columns: 1fr; }
@@ -635,36 +634,71 @@
 <div class="page" id="page-lab">
   <div class="section">
     <div class="section-header"><h2 class="section-title">INTERACTIVE LAB</h2></div>
-    <div style="background:var(--bg3);border:1px solid var(--border);padding:18px 22px;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);line-height:1.65;margin-bottom:44px;">
-      GLB assets load via <code style="background:rgba(255,60,125,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">&lt;model-viewer&gt;</code> — camera controls, auto-rotate, PBR lighting, AR on mobile. Drop <code style="background:rgba(255,60,125,0.08);border:1px solid var(--accent-border);color:var(--accent);padding:2px 6px;font-size:11px;">.glb</code> files into the same folder as index.html and update the src attribute.
-    </div>
-    <div class="lab-grid">
-      <div>
-        <div class="lab-viewer">
-          <div style="text-align:center;">
-            <div class="model-orbit"><div class="model-orbit-inner"></div></div>
-            <p style="font-family:var(--font-mono);font-size:11px;color:var(--text-dim);margin-top:14px;letter-spacing:0.1em;">model-viewer · camera-controls · auto-rotate</p>
-            <p style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin-top:5px;opacity:0.5;">&lt;model-viewer src="tp7.glb" camera-controls auto-rotate /&gt;</p>
-          </div>
+    <div class="lab-model-grid">
+
+      <!-- Yamaha CSP-170 -->
+      <div class="lab-model-card" onclick="showProject('yamaha')">
+        <div class="lab-model-viewer">
+          <model-viewer
+            src="Yamaha_Clavinova_CSP-170.glb"
+            alt="Yamaha CSP-170"
+            auto-rotate
+            camera-controls
+            shadow-intensity="0.8"
+            exposure="0.9"
+            style="width:100%;height:100%;"
+          ></model-viewer>
+          <div class="lab-model-hint">↻ Drag · Scroll to zoom</div>
         </div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-          <button class="btn btn-ghost" style="font-size:11px;padding:8px 14px;">⛶ Fullscreen</button>
-          <button class="btn btn-ghost" style="font-size:11px;padding:8px 14px;">◎ Reset Camera</button>
-          <button class="btn btn-primary" style="font-size:11px;padding:8px 14px;">📱 View in AR</button>
-        </div>
-      </div>
-      <div class="lab-specs">
-        <div style="font-family:var(--font-display);font-size:22px;letter-spacing:0.04em;color:var(--text);margin-bottom:3px;">TP-7 FIELD RECORDER</div>
-        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);letter-spacing:0.12em;margin-bottom:20px;text-transform:uppercase;">Product Visualization · Blender</div>
-        <div class="lab-spec-row"><span class="lab-spec-key">Software</span><span class="lab-spec-val">Blender</span></div>
-        <div class="lab-spec-row"><span class="lab-spec-key">Renderer</span><span class="lab-spec-val">Cycles</span></div>
-        <div class="lab-spec-row"><span class="lab-spec-key">Workflow</span><span class="lab-spec-val">Sub-D</span></div>
-        <div class="lab-spec-row"><span class="lab-spec-key">Animation</span><span class="lab-spec-val">Audio-driven</span></div>
-        <div class="lab-spec-row"><span class="lab-spec-key">Format</span><span class="lab-spec-val">GLB ready</span></div>
-        <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:11px;color:var(--text-dim);line-height:1.6;">
-          Drop tp7.glb here to enable interactive preview with full camera control and AR.
+        <div class="lab-model-info">
+          <div class="lab-model-tag">Product · PBR · Blender</div>
+          <div class="lab-model-name">Yamaha CSP-170</div>
+          <span class="lab-model-link">View Project →</span>
         </div>
       </div>
+
+      <!-- Chain -->
+      <div class="lab-model-card" onclick="showProject('heritage')">
+        <div class="lab-model-viewer">
+          <model-viewer
+            src="Chain.glb"
+            alt="Chain"
+            auto-rotate
+            camera-controls
+            shadow-intensity="0.8"
+            exposure="0.9"
+            style="width:100%;height:100%;"
+          ></model-viewer>
+          <div class="lab-model-hint">↻ Drag · Scroll to zoom</div>
+        </div>
+        <div class="lab-model-info">
+          <div class="lab-model-tag">Cultural Heritage · Photogrammetry</div>
+          <div class="lab-model-name">Chain</div>
+          <span class="lab-model-link">View Project →</span>
+        </div>
+      </div>
+
+      <!-- Chainmail -->
+      <div class="lab-model-card" onclick="showProject('heritage')">
+        <div class="lab-model-viewer">
+          <model-viewer
+            src="chainmail.glb"
+            alt="Chainmail"
+            auto-rotate
+            camera-controls
+            shadow-intensity="0.8"
+            exposure="0.9"
+            style="width:100%;height:100%;"
+          ></model-viewer>
+          <div class="lab-model-hint">↻ Drag · Scroll to zoom</div>
+        </div>
+        <div class="lab-model-info">
+          <div class="lab-model-tag">Cultural Heritage · Photogrammetry</div>
+          <div class="lab-model-name">Chainmail</div>
+          <span class="lab-model-link">View Project →</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
