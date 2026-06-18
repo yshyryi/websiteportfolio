@@ -514,9 +514,7 @@
 
       <!-- Heritage Scanning -->
       <div class="project-card medium" onclick="showProject('heritage')">
-        <div class="thumb-grid thumb-4" style="height:100%;">
-          <div class="thumb-label-3d">HERITAGE</div>
-        </div>
+        <img class="card-media" src="MajorChain.png" alt="Heritage Scanning">
         <div class="project-overlay">
           <div class="project-tag">Cultural Heritage · Photogrammetry</div>
           <div class="project-name">HERITAGE SCANNING</div>
@@ -615,9 +613,7 @@
       <!-- Картка Heritage Scanning — 6-й -->
       <div class="work-card" data-cat="realtime" onclick="showProject('heritage')">
         <div class="work-card-image">
-          <div class="thumb-grid thumb-4" style="height:100%;aspect-ratio:4/3;">
-            <div class="thumb-label-3d">HERITAGE</div>
-          </div>
+          <img src="MajorChain.png" alt="Heritage Scanning">
         </div>
         <div class="work-card-body">
           <div class="work-card-tag">Cultural Heritage · Photogrammetry</div>
@@ -976,14 +972,14 @@ const projects = {
     specs: { a: 'Photogrammetry', b: 'PBR', c: 'GLB', d: 'Optimized' },
     specLabels: { a: 'Method', b: 'Materials', c: 'Format', d: 'Workflow' },
     result: 'Optimized real-time 3D models of cultural heritage artifacts — ready for browser viewing, archival documentation, and educational use. Two interactive models: historical chain and chainmail.',
-    heroMedia: { type: 'placeholder', label: 'HERITAGE' },
+    heroMedia: { type: 'image', src: 'MajorChain.png' },
     glbModels: [
       { src: 'Chain.glb',      title: 'Chain',      label: 'Interactive 3D Model — Chain' },
       { src: 'chainmail.glb',  title: 'Chainmail',  label: 'Interactive 3D Model — Chainmail' }
     ],
     processItems: [
-      { type: 'placeholder', title: 'Scan Reference', desc: 'Raw photogrammetry capture — reference images and initial mesh reconstruction from scan session.' },
-      { type: 'placeholder', title: 'Optimized Mesh', desc: 'Geometry optimization — polygon reduction with preserved surface detail, UV layout, and PBR material bake.' }
+      { type: 'image', src: 'MajorChain.png', title: 'Chain — Render', desc: 'Photogrammetric scan of a historical chain. Assembled from raw scan data and optimized for real-time delivery.' },
+      { type: 'placeholder', title: 'Chainmail — Render', desc: 'Render documentation coming soon.' }
     ]
   },
 
