@@ -974,20 +974,18 @@ const projects = {
     heroMedia: { type: 'image', src: 'YamahaRender.png' },
     /* glbModel — 3D переглядач внизу сторінки окремим блоком */
     glbModel: { src: 'Yamaha_Clavinova_CSP-170.glb' },
-    /* processItems — рендер і 360° відео + заглушки для майбутнього контенту */
+    /* processItems — рендер + 360° відео (справжні рендери додам пізніше) */
     processItems: [
       {
-        type: 'image', src: 'YamahaRender.png',
-        title: 'Clay Render — Form Study',
-        desc: 'Render of the current model stage. Overall proportions, key detail, and cabinet form validation.'
+        type: 'image', src: 'Clavinova.png',
+        title: 'Studio Render',
+        desc: 'Rendered view of the Clavinova CSP-170 — cabinet, keyboard, and pedal detailing.'
       },
       {
         type: 'video', src: 'Yamaha360.mp4',
         title: '360° Turntable',
-        desc: 'Full rotation around the model. All sides of the cabinet, keyboard, and pedal assembly.'
-      },
-      { type: 'placeholder', title: 'Materials & Textures', desc: 'PBR material setup — gloss white body, black keys, metal pedals and accents. In progress.' },
-      { type: 'placeholder', title: 'Final Renders', desc: 'Finished renders with lighting and materials. Will be added when texturing is complete.' }
+        desc: 'Full rotation around the model — all sides of the cabinet, keyboard, and pedal assembly.'
+      }
     ]
   },
 
